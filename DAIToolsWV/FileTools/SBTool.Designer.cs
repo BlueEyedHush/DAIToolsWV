@@ -34,6 +34,7 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.opnSingleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openRawBundleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
@@ -71,7 +72,6 @@
             this.hb4 = new Be.Windows.Forms.HexBox();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.treeView2 = new System.Windows.Forms.TreeView();
-            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.contextmenu.SuspendLayout();
@@ -125,27 +125,34 @@
             this.toolStripMenuItem3,
             this.saveAsToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(35, 20);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // opnSingleToolStripMenuItem
             // 
             this.opnSingleToolStripMenuItem.Name = "opnSingleToolStripMenuItem";
-            this.opnSingleToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
+            this.opnSingleToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
             this.opnSingleToolStripMenuItem.Text = "Open";
             this.opnSingleToolStripMenuItem.Click += new System.EventHandler(this.opnSingleToolStripMenuItem_Click);
             // 
             // openRawBundleToolStripMenuItem
             // 
             this.openRawBundleToolStripMenuItem.Name = "openRawBundleToolStripMenuItem";
-            this.openRawBundleToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
+            this.openRawBundleToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
             this.openRawBundleToolStripMenuItem.Text = "Open Raw Bundle";
             this.openRawBundleToolStripMenuItem.Click += new System.EventHandler(this.openRawBundleToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(204, 22);
+            this.toolStripMenuItem3.Text = "Open Binary Raw Bundle";
+            this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
             // 
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
             this.saveAsToolStripMenuItem.Text = "Save as...";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
@@ -174,7 +181,7 @@
             this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
             this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(57, 22);
+            this.toolStripButton1.Size = new System.Drawing.Size(61, 22);
             this.toolStripButton1.Text = "Find Next";
             this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
@@ -189,7 +196,7 @@
             this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
             this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(57, 22);
+            this.toolStripButton2.Size = new System.Drawing.Size(61, 22);
             this.toolStripButton2.Text = "Find Next";
             this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
             // 
@@ -198,12 +205,12 @@
             this.contextmenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.expandAllSubNodesToolStripMenuItem});
             this.contextmenu.Name = "contextmenu";
-            this.contextmenu.Size = new System.Drawing.Size(176, 26);
+            this.contextmenu.Size = new System.Drawing.Size(185, 26);
             // 
             // expandAllSubNodesToolStripMenuItem
             // 
             this.expandAllSubNodesToolStripMenuItem.Name = "expandAllSubNodesToolStripMenuItem";
-            this.expandAllSubNodesToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            this.expandAllSubNodesToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
             this.expandAllSubNodesToolStripMenuItem.Text = "Expand all sub nodes";
             this.expandAllSubNodesToolStripMenuItem.Click += new System.EventHandler(this.expandAllSubNodesToolStripMenuItem_Click);
             // 
@@ -384,12 +391,12 @@
             this.findconextmenu1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.findToolStripMenuItem});
             this.findconextmenu1.Name = "findconextmenu1";
-            this.findconextmenu1.Size = new System.Drawing.Size(95, 26);
+            this.findconextmenu1.Size = new System.Drawing.Size(98, 26);
             // 
             // findToolStripMenuItem
             // 
             this.findToolStripMenuItem.Name = "findToolStripMenuItem";
-            this.findToolStripMenuItem.Size = new System.Drawing.Size(94, 22);
+            this.findToolStripMenuItem.Size = new System.Drawing.Size(97, 22);
             this.findToolStripMenuItem.Text = "Find";
             this.findToolStripMenuItem.Click += new System.EventHandler(this.findToolStripMenuItem_Click);
             // 
@@ -456,12 +463,12 @@
             this.findconextmenu2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem1});
             this.findconextmenu2.Name = "findconextmenu1";
-            this.findconextmenu2.Size = new System.Drawing.Size(95, 26);
+            this.findconextmenu2.Size = new System.Drawing.Size(98, 26);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(94, 22);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(97, 22);
             this.toolStripMenuItem1.Text = "Find";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
@@ -528,12 +535,12 @@
             this.findconextmenu3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem2});
             this.findconextmenu3.Name = "findconextmenu1";
-            this.findconextmenu3.Size = new System.Drawing.Size(95, 26);
+            this.findconextmenu3.Size = new System.Drawing.Size(98, 26);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(94, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(97, 22);
             this.toolStripMenuItem2.Text = "Find";
             this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
             // 
@@ -574,13 +581,6 @@
             this.treeView2.Size = new System.Drawing.Size(644, 386);
             this.treeView2.TabIndex = 1;
             // 
-            // toolStripMenuItem3
-            // 
-            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(192, 22);
-            this.toolStripMenuItem3.Text = "Open Binary Raw Bundle";
-            this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
-            // 
             // SBTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -592,7 +592,9 @@
             this.Controls.Add(this.toolStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "SBTool";
+            this.ShowIcon = false;
             this.Text = "SB Tool";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SBTool_FormClosing);
             this.Load += new System.EventHandler(this.SBTool_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();

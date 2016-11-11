@@ -65,20 +65,20 @@
             this.openSingleToolStripMenuItem,
             this.saveAsToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(35, 20);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // openSingleToolStripMenuItem
             // 
             this.openSingleToolStripMenuItem.Name = "openSingleToolStripMenuItem";
-            this.openSingleToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openSingleToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
             this.openSingleToolStripMenuItem.Text = "Open";
             this.openSingleToolStripMenuItem.Click += new System.EventHandler(this.openSingleToolStripMenuItem_Click);
             // 
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
             this.saveAsToolStripMenuItem.Text = "Save as...";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
@@ -88,9 +88,9 @@
             this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeView1.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.treeView1.HideSelection = false;
-            this.treeView1.Location = new System.Drawing.Point(0, 49);
+            this.treeView1.Location = new System.Drawing.Point(0, 25);
             this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(583, 439);
+            this.treeView1.Size = new System.Drawing.Size(583, 463);
             this.treeView1.TabIndex = 2;
             this.treeView1.DoubleClick += new System.EventHandler(this.treeView1_DoubleClick);
             // 
@@ -102,13 +102,13 @@
             this.nOPEToolStripMenuItem,
             this.expandAllSubNodesToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(177, 92);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(189, 92);
             this.contextMenuStrip1.Paint += new System.Windows.Forms.PaintEventHandler(this.contextMenuStrip1_Paint);
             // 
             // deleteBundleToolStripMenuItem
             // 
             this.deleteBundleToolStripMenuItem.Name = "deleteBundleToolStripMenuItem";
-            this.deleteBundleToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.deleteBundleToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.deleteBundleToolStripMenuItem.Text = "Delete bundle";
             this.deleteBundleToolStripMenuItem.Visible = false;
             this.deleteBundleToolStripMenuItem.Click += new System.EventHandler(this.deleteBundleToolStripMenuItem_Click);
@@ -116,7 +116,7 @@
             // keepOnlyThisBundleToolStripMenuItem
             // 
             this.keepOnlyThisBundleToolStripMenuItem.Name = "keepOnlyThisBundleToolStripMenuItem";
-            this.keepOnlyThisBundleToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.keepOnlyThisBundleToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.keepOnlyThisBundleToolStripMenuItem.Text = "Keep only this bundle";
             this.keepOnlyThisBundleToolStripMenuItem.Visible = false;
             this.keepOnlyThisBundleToolStripMenuItem.Click += new System.EventHandler(this.keepOnlyThisBundleToolStripMenuItem_Click);
@@ -124,13 +124,13 @@
             // nOPEToolStripMenuItem
             // 
             this.nOPEToolStripMenuItem.Name = "nOPEToolStripMenuItem";
-            this.nOPEToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.nOPEToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.nOPEToolStripMenuItem.Text = "N.O.P.E.";
             // 
             // expandAllSubNodesToolStripMenuItem
             // 
             this.expandAllSubNodesToolStripMenuItem.Name = "expandAllSubNodesToolStripMenuItem";
-            this.expandAllSubNodesToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.expandAllSubNodesToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.expandAllSubNodesToolStripMenuItem.Text = "Expand all sub nodes";
             this.expandAllSubNodesToolStripMenuItem.Click += new System.EventHandler(this.expandAllSubNodesToolStripMenuItem_Click);
             // 
@@ -139,7 +139,7 @@
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripTextBox1,
             this.toolStripButton1});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 24);
+            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(583, 25);
             this.toolStrip1.TabIndex = 3;
@@ -157,7 +157,7 @@
             this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
             this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(57, 22);
+            this.toolStripButton1.Size = new System.Drawing.Size(61, 22);
             this.toolStripButton1.Text = "Find Next";
             this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
@@ -171,7 +171,10 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "TOCTool";
+            this.ShowIcon = false;
             this.Text = "TOC Tool";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TOCTool_FormClosing);
+            this.Load += new System.EventHandler(this.TOCTool_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.contextMenuStrip1.ResumeLayout(false);

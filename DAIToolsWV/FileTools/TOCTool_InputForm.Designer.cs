@@ -55,14 +55,14 @@
             // doneToolStripMenuItem
             // 
             this.doneToolStripMenuItem.Name = "doneToolStripMenuItem";
-            this.doneToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.doneToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
             this.doneToolStripMenuItem.Text = "Done";
             this.doneToolStripMenuItem.Click += new System.EventHandler(this.doneToolStripMenuItem_Click);
             // 
             // cancelToolStripMenuItem
             // 
             this.cancelToolStripMenuItem.Name = "cancelToolStripMenuItem";
-            this.cancelToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
+            this.cancelToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
             this.cancelToolStripMenuItem.Text = "Cancel";
             this.cancelToolStripMenuItem.Click += new System.EventHandler(this.cancelToolStripMenuItem_Click);
             // 
@@ -123,6 +123,7 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "TOCTool_InputForm";
+            this.ShowIcon = false;
             this.Text = "Input Form";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();

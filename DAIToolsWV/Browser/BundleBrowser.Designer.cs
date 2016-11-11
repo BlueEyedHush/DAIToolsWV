@@ -177,7 +177,7 @@
             this.toolStripButton21.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton21.Image")));
             this.toolStripButton21.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton21.Name = "toolStripButton21";
-            this.toolStripButton21.Size = new System.Drawing.Size(57, 22);
+            this.toolStripButton21.Size = new System.Drawing.Size(61, 22);
             this.toolStripButton21.Text = "Find Next";
             this.toolStripButton21.Click += new System.EventHandler(this.toolStripButton21_Click);
             // 
@@ -195,7 +195,7 @@
             this.toolStripButton6.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton6.Image")));
             this.toolStripButton6.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton6.Name = "toolStripButton6";
-            this.toolStripButton6.Size = new System.Drawing.Size(61, 22);
+            this.toolStripButton6.Size = new System.Drawing.Size(66, 22);
             this.toolStripButton6.Text = "BaseGame";
             this.toolStripButton6.Click += new System.EventHandler(this.toolStripButton6_Click);
             // 
@@ -208,7 +208,7 @@
             this.toolStripButton7.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton7.Image")));
             this.toolStripButton7.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton7.Name = "toolStripButton7";
-            this.toolStripButton7.Size = new System.Drawing.Size(30, 22);
+            this.toolStripButton7.Size = new System.Drawing.Size(33, 22);
             this.toolStripButton7.Text = "DLC";
             this.toolStripButton7.Click += new System.EventHandler(this.toolStripButton7_Click);
             // 
@@ -221,7 +221,7 @@
             this.toolStripButton8.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton8.Image")));
             this.toolStripButton8.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton8.Name = "toolStripButton8";
-            this.toolStripButton8.Size = new System.Drawing.Size(38, 22);
+            this.toolStripButton8.Size = new System.Drawing.Size(41, 22);
             this.toolStripButton8.Text = "Patch";
             this.toolStripButton8.Click += new System.EventHandler(this.toolStripButton8_Click);
             // 
@@ -237,7 +237,7 @@
             this.toolStripButton9.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton9.Image")));
             this.toolStripButton9.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton9.Name = "toolStripButton9";
-            this.toolStripButton9.Size = new System.Drawing.Size(41, 22);
+            this.toolStripButton9.Size = new System.Drawing.Size(43, 22);
             this.toolStripButton9.Text = "isBase";
             this.toolStripButton9.Click += new System.EventHandler(this.toolStripButton9_Click);
             // 
@@ -248,7 +248,7 @@
             this.toolStripButton10.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton10.Image")));
             this.toolStripButton10.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton10.Name = "toolStripButton10";
-            this.toolStripButton10.Size = new System.Drawing.Size(43, 22);
+            this.toolStripButton10.Size = new System.Drawing.Size(46, 22);
             this.toolStripButton10.Text = "isDelta";
             this.toolStripButton10.Click += new System.EventHandler(this.toolStripButton10_Click);
             // 
@@ -277,6 +277,7 @@
             this.Controls.Add(this.toolStrip2);
             this.Controls.Add(this.statusStrip1);
             this.Name = "BundleBrowser";
+            this.ShowIcon = false;
             this.Text = "Bundle Browser";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.BundleBrowser_FormClosing);
             this.Load += new System.EventHandler(this.BundleBrowser_Load);

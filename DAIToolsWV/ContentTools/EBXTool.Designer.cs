@@ -370,13 +370,13 @@
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.loadFromBinaryToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(35, 20);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // loadFromBinaryToolStripMenuItem
             // 
             this.loadFromBinaryToolStripMenuItem.Name = "loadFromBinaryToolStripMenuItem";
-            this.loadFromBinaryToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.loadFromBinaryToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.loadFromBinaryToolStripMenuItem.Text = "Load from binary...";
             this.loadFromBinaryToolStripMenuItem.Click += new System.EventHandler(this.loadFromBinaryToolStripMenuItem_Click);
             // 
@@ -405,7 +405,10 @@
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
             this.Name = "EBXTool";
+            this.ShowIcon = false;
             this.Text = "EBX Tool";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EBXTool_FormClosing);
+            this.Load += new System.EventHandler(this.EBXTool_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);

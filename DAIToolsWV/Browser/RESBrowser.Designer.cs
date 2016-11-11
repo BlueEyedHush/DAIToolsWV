@@ -84,7 +84,7 @@
             this.toolStripButton19.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton19.Image")));
             this.toolStripButton19.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton19.Name = "toolStripButton19";
-            this.toolStripButton19.Size = new System.Drawing.Size(57, 22);
+            this.toolStripButton19.Size = new System.Drawing.Size(61, 22);
             this.toolStripButton19.Text = "Find Next";
             this.toolStripButton19.Click += new System.EventHandler(this.toolStripButton19_Click);
             // 
@@ -105,7 +105,7 @@
             this.toolStripButton18.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton18.Image")));
             this.toolStripButton18.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton18.Name = "toolStripButton18";
-            this.toolStripButton18.Size = new System.Drawing.Size(76, 22);
+            this.toolStripButton18.Size = new System.Drawing.Size(80, 22);
             this.toolStripButton18.Text = "Export Binary";
             this.toolStripButton18.Click += new System.EventHandler(this.toolStripButton18_Click);
             // 
@@ -220,20 +220,20 @@
             this.createSingleModToolStripMenuItem,
             this.createForAllDupsModToolStripMenuItem});
             this.modMakingToolStripMenuItem.Name = "modMakingToolStripMenuItem";
-            this.modMakingToolStripMenuItem.Size = new System.Drawing.Size(75, 20);
+            this.modMakingToolStripMenuItem.Size = new System.Drawing.Size(87, 20);
             this.modMakingToolStripMenuItem.Text = "Mod Making";
             // 
             // createSingleModToolStripMenuItem
             // 
             this.createSingleModToolStripMenuItem.Name = "createSingleModToolStripMenuItem";
-            this.createSingleModToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.createSingleModToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
             this.createSingleModToolStripMenuItem.Text = "Create Single Mod";
             this.createSingleModToolStripMenuItem.Click += new System.EventHandler(this.createSingleModToolStripMenuItem_Click);
             // 
             // createForAllDupsModToolStripMenuItem
             // 
             this.createForAllDupsModToolStripMenuItem.Name = "createForAllDupsModToolStripMenuItem";
-            this.createForAllDupsModToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.createForAllDupsModToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
             this.createForAllDupsModToolStripMenuItem.Text = "Create for all Dups Mod";
             this.createForAllDupsModToolStripMenuItem.Click += new System.EventHandler(this.createForAllDupsModToolStripMenuItem_Click);
             // 
@@ -248,7 +248,10 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "RESBrowser";
+            this.ShowIcon = false;
             this.Text = "RESBrowser";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.RESBrowser_FormClosing);
+            this.Load += new System.EventHandler(this.RESBrowser_Load);
             this.toolStrip4.ResumeLayout(false);
             this.toolStrip4.PerformLayout();
             this.splitContainer4.Panel1.ResumeLayout(false);

@@ -14,6 +14,19 @@ namespace DAIToolsWV.GeneralTools
 {
     public partial class HexToString : Form
     {
+        private TabControl tabCtrl;
+        private TabPage tabPag;
+        public TabPage TabPag
+        {
+            get { return tabPag; }
+            set { tabPag = value; }
+        }
+
+        public TabControl TabCtrl
+        {
+            set { tabCtrl = value; }
+        }
+
         public HexToString()
         {
             InitializeComponent();

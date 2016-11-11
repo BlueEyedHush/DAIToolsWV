@@ -14,6 +14,19 @@ namespace DAIToolsWV.FileTools
 {
     public partial class HexTool : Form
     {
+        private TabControl tabCtrl;
+        private TabPage tabPag;
+        public TabPage TabPag
+        {
+            get { return tabPag; }
+            set { tabPag = value; }
+        }
+
+        public TabControl TabCtrl
+        {
+            set { tabCtrl = value; }
+        }
+
         public HexTool()
         {
             InitializeComponent();

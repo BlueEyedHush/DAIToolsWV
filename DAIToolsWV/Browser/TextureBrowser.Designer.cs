@@ -103,20 +103,20 @@
             this.openInTextureToolToolStripMenuItem,
             this.nOPEToolStripMenuItem});
             this.texcontext.Name = "texcontext";
-            this.texcontext.Size = new System.Drawing.Size(176, 48);
+            this.texcontext.Size = new System.Drawing.Size(184, 48);
             this.texcontext.Paint += new System.Windows.Forms.PaintEventHandler(this.texcontext_Paint);
             // 
             // openInTextureToolToolStripMenuItem
             // 
             this.openInTextureToolToolStripMenuItem.Name = "openInTextureToolToolStripMenuItem";
-            this.openInTextureToolToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            this.openInTextureToolToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
             this.openInTextureToolToolStripMenuItem.Text = "Open in Texture Tool";
             this.openInTextureToolToolStripMenuItem.Click += new System.EventHandler(this.openInTextureToolToolStripMenuItem_Click);
             // 
             // nOPEToolStripMenuItem
             // 
             this.nOPEToolStripMenuItem.Name = "nOPEToolStripMenuItem";
-            this.nOPEToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            this.nOPEToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
             this.nOPEToolStripMenuItem.Text = "N.O.P.E.";
             // 
             // splitContainer5
@@ -241,7 +241,7 @@
             this.toolStripButton19.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton19.Image")));
             this.toolStripButton19.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton19.Name = "toolStripButton19";
-            this.toolStripButton19.Size = new System.Drawing.Size(57, 22);
+            this.toolStripButton19.Size = new System.Drawing.Size(61, 22);
             this.toolStripButton19.Text = "Find Next";
             this.toolStripButton19.Click += new System.EventHandler(this.toolStripButton19_Click);
             // 
@@ -256,7 +256,7 @@
             this.toolStripButton18.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton18.Image")));
             this.toolStripButton18.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton18.Name = "toolStripButton18";
-            this.toolStripButton18.Size = new System.Drawing.Size(84, 22);
+            this.toolStripButton18.Size = new System.Drawing.Size(85, 22);
             this.toolStripButton18.Text = "Export Texture";
             this.toolStripButton18.Click += new System.EventHandler(this.toolStripButton18_Click);
             // 
@@ -267,7 +267,7 @@
             this.toolStripButton17.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton17.Image")));
             this.toolStripButton17.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton17.Name = "toolStripButton17";
-            this.toolStripButton17.Size = new System.Drawing.Size(75, 22);
+            this.toolStripButton17.Size = new System.Drawing.Size(83, 22);
             this.toolStripButton17.Text = "Fit to window";
             this.toolStripButton17.Click += new System.EventHandler(this.toolStripButton17_Click);
             // 
@@ -278,7 +278,7 @@
             this.toolStripButton16.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton16.Image")));
             this.toolStripButton16.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton16.Name = "toolStripButton16";
-            this.toolStripButton16.Size = new System.Drawing.Size(71, 22);
+            this.toolStripButton16.Size = new System.Drawing.Size(77, 22);
             this.toolStripButton16.Text = "HEX Preview";
             this.toolStripButton16.Click += new System.EventHandler(this.toolStripButton16_Click);
             // 
@@ -308,7 +308,9 @@
             this.Controls.Add(this.statusStrip3);
             this.Controls.Add(this.toolStrip4);
             this.Name = "TextureBrowser";
+            this.ShowIcon = false;
             this.Text = "Texture Browser";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TextureBrowser_FormClosing);
             this.Load += new System.EventHandler(this.TextureBrowser_Load);
             this.splitContainer4.Panel1.ResumeLayout(false);
             this.splitContainer4.Panel2.ResumeLayout(false);

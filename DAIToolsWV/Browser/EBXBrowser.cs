@@ -18,6 +18,19 @@ namespace DAIToolsWV.Browser
 {
     public partial class EBXBrowser : Form
     {
+        private TabControl tabCtrl;
+        private TabPage tabPag;
+        public TabPage TabPag
+        {
+            get { return tabPag; }
+            set { tabPag = value; }
+        }
+
+        public TabControl TabCtrl
+        {
+            set { tabCtrl = value; }
+        }
+
         private DBAccess.EBXInformation[] ebxlist = null;
         private Thread TebxRefresh = null;
         private string lastpath = "";
@@ -29,6 +42,10 @@ namespace DAIToolsWV.Browser
 
         private void EBXBrowser_Load(object sender, EventArgs e)
         {
+            tabCtrl.SelectedTab = tabPag;
+            if (!tabCtrl.Visible)
+                tabCtrl.Visible = true;
+
             toolStripComboBox1.Items.Clear();
             toolStripComboBox1.Items.Add("CAS Patch Type - 0 (Normal/None)");
             toolStripComboBox1.Items.Add("CAS Patch Type - 1 (Replace)");
@@ -39,6 +56,10 @@ namespace DAIToolsWV.Browser
 
         private void EBXBrowser_FormClosing(object sender, FormClosingEventArgs e)
         {
+            this.tabPag.Dispose();
+            if (!tabCtrl.HasChildren)
+                tabCtrl.Visible = false;
+
             try
             {
                 if (TebxRefresh != null)
@@ -230,13 +251,13 @@ namespace DAIToolsWV.Browser
         private void toolStripButton14_Click(object sender, EventArgs e)
         {
             SaveFileDialog d = new SaveFileDialog();
-            d.Filter = "*.bin|*.bin";
+            d.Filter = "*.ebx|*.ebx";
             TreeNode t = treeView4.SelectedNode;
             if (t == null || t.Nodes == null || t.Nodes.Count != 0)
                 return;
             string path = Helpers.GetPathFromNode(t, "/");
             path = path.Substring(1, path.Length - 1);
-            d.FileName = t.Text + ".bin";
+            d.FileName = t.Text + ".ebx";
             if (d.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 foreach (DBAccess.EBXInformation ebx in ebxlist)
@@ -334,7 +355,7 @@ namespace DAIToolsWV.Browser
             path = path.Substring(1, path.Length - 1);
             MessageBox.Show("Please select replacement data");
             OpenFileDialog d = new OpenFileDialog();
-            d.Filter = "*.bin|*.bin";
+            d.Filter = "*.ebx|*.ebx";
             if (d.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 byte[] data = File.ReadAllBytes(d.FileName);

@@ -222,20 +222,20 @@
             this.openInTextureToolToolStripMenuItem,
             this.nOPEToolStripMenuItem});
             this.context.Name = "texcontext";
-            this.context.Size = new System.Drawing.Size(163, 48);
+            this.context.Size = new System.Drawing.Size(175, 48);
             this.context.Paint += new System.Windows.Forms.PaintEventHandler(this.context_Paint);
             // 
             // openInTextureToolToolStripMenuItem
             // 
             this.openInTextureToolToolStripMenuItem.Name = "openInTextureToolToolStripMenuItem";
-            this.openInTextureToolToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.openInTextureToolToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.openInTextureToolToolStripMenuItem.Text = "Open in Mesh Tool";
             this.openInTextureToolToolStripMenuItem.Click += new System.EventHandler(this.openInTextureToolToolStripMenuItem_Click);
             // 
             // nOPEToolStripMenuItem
             // 
             this.nOPEToolStripMenuItem.Name = "nOPEToolStripMenuItem";
-            this.nOPEToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.nOPEToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.nOPEToolStripMenuItem.Text = "N.O.P.E.";
             // 
             // toolStripButton18
@@ -244,7 +244,7 @@
             this.toolStripButton18.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton18.Image")));
             this.toolStripButton18.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton18.Name = "toolStripButton18";
-            this.toolStripButton18.Size = new System.Drawing.Size(76, 22);
+            this.toolStripButton18.Size = new System.Drawing.Size(80, 22);
             this.toolStripButton18.Text = "Export Binary";
             this.toolStripButton18.Click += new System.EventHandler(this.toolStripButton18_Click);
             // 
@@ -259,7 +259,7 @@
             this.toolStripButton19.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton19.Image")));
             this.toolStripButton19.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton19.Name = "toolStripButton19";
-            this.toolStripButton19.Size = new System.Drawing.Size(57, 22);
+            this.toolStripButton19.Size = new System.Drawing.Size(61, 22);
             this.toolStripButton19.Text = "Find Next";
             this.toolStripButton19.Click += new System.EventHandler(this.toolStripButton19_Click);
             // 
@@ -296,7 +296,10 @@
             this.Controls.Add(this.toolStrip4);
             this.Controls.Add(this.statusStrip3);
             this.Name = "MeshBrowser";
+            this.ShowIcon = false;
             this.Text = "Mesh Browser";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MeshBrowser_FormClosing);
+            this.Load += new System.EventHandler(this.MeshBrowser_Load);
             this.statusStrip3.ResumeLayout(false);
             this.statusStrip3.PerformLayout();
             this.splitContainer5.Panel1.ResumeLayout(false);

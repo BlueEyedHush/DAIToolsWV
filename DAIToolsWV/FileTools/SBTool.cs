@@ -16,6 +16,19 @@ namespace DAIToolsWV.FileTools
 {
     public partial class SBTool : Form
     {
+        private TabControl tabCtrl;
+        private TabPage tabPag;
+        public TabPage TabPag
+        {
+            get { return tabPag; }
+            set { tabPag = value; }
+        }
+
+        public TabControl TabCtrl
+        {
+            set { tabCtrl = value; }
+        }
+
         public TOCFile toc;
         public SBFile sb;
         public CATFile cat_base, cat_patch;
@@ -125,6 +138,10 @@ namespace DAIToolsWV.FileTools
 
         private void SBTool_Load(object sender, EventArgs e)
         {
+            tabCtrl.SelectedTab = tabPag;
+            if (!tabCtrl.Visible)
+                tabCtrl.Visible = true; 
+            
             types = DBAccess.GetUsedRESTypes();
             List<string> tmp = new List<string>();
             foreach (string type in types)
@@ -421,6 +438,13 @@ namespace DAIToolsWV.FileTools
                 RefreshBinaryBundle();
                 return;
             }
+        }
+
+        private void SBTool_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.tabPag.Dispose();
+            if (!tabCtrl.HasChildren)
+                tabCtrl.Visible = false;
         }
     }
 }

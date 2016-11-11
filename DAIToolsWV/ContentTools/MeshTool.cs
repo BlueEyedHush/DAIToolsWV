@@ -18,6 +18,19 @@ namespace DAIToolsWV.ContentTools
 {
     public partial class MeshTool : Form
     {
+        private TabControl tabCtrl;
+        private TabPage tabPag;
+        public TabPage TabPag
+        {
+            get { return tabPag; }
+            set { tabPag = value; }
+        }
+
+        public TabControl TabCtrl
+        {
+            set { tabCtrl = value; }
+        }
+
         private List<DBAccess.RESInformation> ttlist = null;
         private List<DBAccess.RESInformation> ttprevlist = null;
         public DBAccess.BundleInformation[] bil;
@@ -258,6 +271,20 @@ namespace DAIToolsWV.ContentTools
                 psk.Export(d.FileName);
                 MessageBox.Show("Done.");
             }
+        }
+
+        private void MeshTool_Load(object sender, EventArgs e)
+        {
+            tabCtrl.SelectedTab = tabPag;
+            if (!tabCtrl.Visible)
+                tabCtrl.Visible = true;
+        }
+
+        private void MeshTool_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.tabPag.Dispose();
+            if (!tabCtrl.HasChildren)
+                tabCtrl.Visible = false;
         }
     }
 }

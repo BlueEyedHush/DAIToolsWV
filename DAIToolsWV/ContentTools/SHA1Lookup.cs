@@ -17,6 +17,19 @@ namespace DAIToolsWV.ContentTools
 {
     public partial class SHA1Lookup : Form
     {
+        private TabControl tabCtrl;
+        private TabPage tabPag;
+        public TabPage TabPag
+        {
+            get { return tabPag; }
+            set { tabPag = value; }
+        }
+
+        public TabControl TabCtrl
+        {
+            set { tabCtrl = value; }
+        }
+
         public SHA1Lookup()
         {
             InitializeComponent();
@@ -174,6 +187,20 @@ namespace DAIToolsWV.ContentTools
         private void ThreadedSearch(object obj)
         {
             this.Invoke((MethodInvoker)delegate() { Search(); });
+        }
+
+        private void SHA1Lookup_Load(object sender, EventArgs e)
+        {
+            tabCtrl.SelectedTab = tabPag;
+            if (!tabCtrl.Visible)
+                tabCtrl.Visible = true;
+        }
+
+        private void SHA1Lookup_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.tabPag.Dispose();
+            if (!tabCtrl.HasChildren)
+                tabCtrl.Visible = false;
         }
     }
 }

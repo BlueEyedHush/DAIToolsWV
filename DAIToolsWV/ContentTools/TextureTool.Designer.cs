@@ -86,20 +86,20 @@
             this.createSingleModToolStripMenuItem,
             this.createForAllDupsModToolStripMenuItem});
             this.modMakingToolStripMenuItem.Name = "modMakingToolStripMenuItem";
-            this.modMakingToolStripMenuItem.Size = new System.Drawing.Size(75, 20);
+            this.modMakingToolStripMenuItem.Size = new System.Drawing.Size(87, 20);
             this.modMakingToolStripMenuItem.Text = "Mod Making";
             // 
             // createSingleModToolStripMenuItem
             // 
             this.createSingleModToolStripMenuItem.Name = "createSingleModToolStripMenuItem";
-            this.createSingleModToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.createSingleModToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
             this.createSingleModToolStripMenuItem.Text = "Create Single Mod";
             this.createSingleModToolStripMenuItem.Click += new System.EventHandler(this.createSingleModToolStripMenuItem_Click);
             // 
             // createForAllDupsModToolStripMenuItem
             // 
             this.createForAllDupsModToolStripMenuItem.Name = "createForAllDupsModToolStripMenuItem";
-            this.createForAllDupsModToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.createForAllDupsModToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
             this.createForAllDupsModToolStripMenuItem.Text = "Create for all Dups Mod";
             this.createForAllDupsModToolStripMenuItem.Click += new System.EventHandler(this.createForAllDupsModToolStripMenuItem_Click);
             // 
@@ -127,7 +127,7 @@
             this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
             this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(34, 22);
+            this.toolStripButton1.Size = new System.Drawing.Size(37, 22);
             this.toolStripButton1.Text = "Load";
             this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
@@ -138,7 +138,7 @@
             this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
             this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(98, 22);
+            this.toolStripButton2.Size = new System.Drawing.Size(107, 22);
             this.toolStripButton2.Text = "Stretch to window";
             this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
             // 
@@ -149,7 +149,7 @@
             this.toolStripButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
             this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton3.Name = "toolStripButton3";
-            this.toolStripButton3.Size = new System.Drawing.Size(69, 22);
+            this.toolStripButton3.Size = new System.Drawing.Size(71, 22);
             this.toolStripButton3.Text = "Save as dds";
             this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton3_Click);
             // 
@@ -221,7 +221,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(696, 153);
+            this.tabPage2.Size = new System.Drawing.Size(367, 453);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Occurences";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -237,7 +237,7 @@
             this.listBox1.Location = new System.Drawing.Point(3, 3);
             this.listBox1.Name = "listBox1";
             this.listBox1.ScrollAlwaysVisible = true;
-            this.listBox1.Size = new System.Drawing.Size(690, 147);
+            this.listBox1.Size = new System.Drawing.Size(361, 447);
             this.listBox1.TabIndex = 3;
             this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
@@ -247,7 +247,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(696, 153);
+            this.tabPage3.Size = new System.Drawing.Size(367, 453);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Header";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -262,7 +262,7 @@
             this.hb1.Location = new System.Drawing.Point(3, 3);
             this.hb1.Name = "hb1";
             this.hb1.ShadowSelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(60)))), ((int)(((byte)(188)))), ((int)(((byte)(255)))));
-            this.hb1.Size = new System.Drawing.Size(690, 147);
+            this.hb1.Size = new System.Drawing.Size(361, 447);
             this.hb1.StringViewVisible = true;
             this.hb1.TabIndex = 3;
             this.hb1.UseFixedBytesPerLine = true;
@@ -274,7 +274,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(696, 153);
+            this.tabPage4.Size = new System.Drawing.Size(367, 453);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Content HEX";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -289,7 +289,7 @@
             this.hb2.Location = new System.Drawing.Point(3, 3);
             this.hb2.Name = "hb2";
             this.hb2.ShadowSelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(60)))), ((int)(((byte)(188)))), ((int)(((byte)(255)))));
-            this.hb2.Size = new System.Drawing.Size(690, 147);
+            this.hb2.Size = new System.Drawing.Size(361, 447);
             this.hb2.StringViewVisible = true;
             this.hb2.TabIndex = 4;
             this.hb2.UseFixedBytesPerLine = true;
@@ -325,7 +325,7 @@
             // statustext
             // 
             this.statustext.Name = "statustext";
-            this.statustext.Size = new System.Drawing.Size(38, 17);
+            this.statustext.Size = new System.Drawing.Size(39, 17);
             this.statustext.Text = "Ready";
             // 
             // TextureTool
@@ -340,7 +340,10 @@
             this.Controls.Add(this.statusStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "TextureTool";
+            this.ShowIcon = false;
             this.Text = "TextureTool";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TextureTool_FormClosing);
+            this.Load += new System.EventHandler(this.TextureTool_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.toolStrip1.ResumeLayout(false);

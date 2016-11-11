@@ -32,6 +32,9 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FileBrowser));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.treeView1 = new System.Windows.Forms.TreeView();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.openInTOCToolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openInSBToolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.treeView2 = new System.Windows.Forms.TreeView();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
@@ -41,15 +44,12 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton5 = new System.Windows.Forms.ToolStripButton();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.openInTOCToolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openInSBToolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            this.toolStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -81,6 +81,29 @@
             this.treeView1.Size = new System.Drawing.Size(338, 364);
             this.treeView1.TabIndex = 0;
             this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openInTOCToolToolStripMenuItem,
+            this.openInSBToolToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(169, 48);
+            this.contextMenuStrip1.Paint += new System.Windows.Forms.PaintEventHandler(this.contextMenuStrip1_Paint);
+            // 
+            // openInTOCToolToolStripMenuItem
+            // 
+            this.openInTOCToolToolStripMenuItem.Name = "openInTOCToolToolStripMenuItem";
+            this.openInTOCToolToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.openInTOCToolToolStripMenuItem.Text = "Open in TOC Tool";
+            this.openInTOCToolToolStripMenuItem.Click += new System.EventHandler(this.openInTOCToolToolStripMenuItem_Click);
+            // 
+            // openInSBToolToolStripMenuItem
+            // 
+            this.openInSBToolToolStripMenuItem.Name = "openInSBToolToolStripMenuItem";
+            this.openInSBToolToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.openInSBToolToolStripMenuItem.Text = "Open in SB Tool";
+            this.openInSBToolToolStripMenuItem.Click += new System.EventHandler(this.openInSBToolToolStripMenuItem_Click);
             // 
             // listBox1
             // 
@@ -129,7 +152,7 @@
             this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
             this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(61, 22);
+            this.toolStripButton1.Size = new System.Drawing.Size(66, 22);
             this.toolStripButton1.Text = "BaseGame";
             this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
@@ -142,7 +165,7 @@
             this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
             this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(30, 22);
+            this.toolStripButton2.Size = new System.Drawing.Size(33, 22);
             this.toolStripButton2.Text = "DLC";
             this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
             // 
@@ -155,7 +178,7 @@
             this.toolStripButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
             this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton3.Name = "toolStripButton3";
-            this.toolStripButton3.Size = new System.Drawing.Size(38, 22);
+            this.toolStripButton3.Size = new System.Drawing.Size(41, 22);
             this.toolStripButton3.Text = "Patch";
             this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton3_Click);
             // 
@@ -172,7 +195,7 @@
             this.toolStripButton4.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton4.Image")));
             this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton4.Name = "toolStripButton4";
-            this.toolStripButton4.Size = new System.Drawing.Size(52, 22);
+            this.toolStripButton4.Size = new System.Drawing.Size(56, 22);
             this.toolStripButton4.Text = "Path List";
             this.toolStripButton4.Click += new System.EventHandler(this.toolStripButton4_Click);
             // 
@@ -182,32 +205,9 @@
             this.toolStripButton5.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton5.Image")));
             this.toolStripButton5.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton5.Name = "toolStripButton5";
-            this.toolStripButton5.Size = new System.Drawing.Size(58, 22);
+            this.toolStripButton5.Size = new System.Drawing.Size(60, 22);
             this.toolStripButton5.Text = "Path Tree";
             this.toolStripButton5.Click += new System.EventHandler(this.toolStripButton5_Click);
-            // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.openInTOCToolToolStripMenuItem,
-            this.openInSBToolToolStripMenuItem});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(159, 70);
-            this.contextMenuStrip1.Paint += new System.Windows.Forms.PaintEventHandler(this.contextMenuStrip1_Paint);
-            // 
-            // openInTOCToolToolStripMenuItem
-            // 
-            this.openInTOCToolToolStripMenuItem.Name = "openInTOCToolToolStripMenuItem";
-            this.openInTOCToolToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
-            this.openInTOCToolToolStripMenuItem.Text = "Open in TOC Tool";
-            this.openInTOCToolToolStripMenuItem.Click += new System.EventHandler(this.openInTOCToolToolStripMenuItem_Click);
-            // 
-            // openInSBToolToolStripMenuItem
-            // 
-            this.openInSBToolToolStripMenuItem.Name = "openInSBToolToolStripMenuItem";
-            this.openInSBToolToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
-            this.openInSBToolToolStripMenuItem.Text = "Open in SB Tool";
-            this.openInSBToolToolStripMenuItem.Click += new System.EventHandler(this.openInSBToolToolStripMenuItem_Click);
             // 
             // FileBrowser
             // 
@@ -217,15 +217,17 @@
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.toolStrip1);
             this.Name = "FileBrowser";
+            this.ShowIcon = false;
             this.Text = "File Browser";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FileBrowser_FormClosing);
             this.Load += new System.EventHandler(this.FileBrowser_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.contextMenuStrip1.ResumeLayout(false);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
-            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 

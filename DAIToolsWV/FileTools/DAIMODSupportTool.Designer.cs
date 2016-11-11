@@ -30,18 +30,18 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DAIMODSupportTool));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openOldDAIMODToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
             this.rtb1 = new System.Windows.Forms.RichTextBox();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.rtb2 = new System.Windows.Forms.RichTextBox();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.listBox1 = new System.Windows.Forms.ListBox();
             this.hb1 = new Be.Windows.Forms.HexBox();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -66,6 +66,21 @@
             this.menuStrip1.Text = "menuStrip1";
             this.menuStrip1.Visible = false;
             // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openOldDAIMODToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Text = "File";
+            // 
+            // openOldDAIMODToolStripMenuItem
+            // 
+            this.openOldDAIMODToolStripMenuItem.Name = "openOldDAIMODToolStripMenuItem";
+            this.openOldDAIMODToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.openOldDAIMODToolStripMenuItem.Text = "Open old DAIMOD...";
+            this.openOldDAIMODToolStripMenuItem.Click += new System.EventHandler(this.openOldDAIMODToolStripMenuItem_Click);
+            // 
             // toolStrip1
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -75,6 +90,16 @@
             this.toolStrip1.Size = new System.Drawing.Size(737, 25);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
+            // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(118, 22);
+            this.toolStripButton1.Text = "Export Selected Data";
+            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
             // tabControl1
             // 
@@ -94,10 +119,22 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(284, 198);
+            this.tabPage1.Size = new System.Drawing.Size(729, 351);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "XML";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // rtb1
+            // 
+            this.rtb1.DetectUrls = false;
+            this.rtb1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtb1.Font = new System.Drawing.Font("Courier New", 10F);
+            this.rtb1.Location = new System.Drawing.Point(3, 3);
+            this.rtb1.Name = "rtb1";
+            this.rtb1.Size = new System.Drawing.Size(723, 345);
+            this.rtb1.TabIndex = 3;
+            this.rtb1.Text = "";
+            this.rtb1.WordWrap = false;
             // 
             // tabPage2
             // 
@@ -105,10 +142,22 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(284, 222);
+            this.tabPage2.Size = new System.Drawing.Size(729, 351);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Script";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // rtb2
+            // 
+            this.rtb2.DetectUrls = false;
+            this.rtb2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtb2.Font = new System.Drawing.Font("Courier New", 10F);
+            this.rtb2.Location = new System.Drawing.Point(3, 3);
+            this.rtb2.Name = "rtb2";
+            this.rtb2.Size = new System.Drawing.Size(723, 345);
+            this.rtb2.TabIndex = 3;
+            this.rtb2.Text = "";
+            this.rtb2.WordWrap = false;
             // 
             // tabPage3
             // 
@@ -138,31 +187,6 @@
             this.splitContainer1.SplitterDistance = 299;
             this.splitContainer1.TabIndex = 0;
             // 
-            // fileToolStripMenuItem
-            // 
-            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.openOldDAIMODToolStripMenuItem});
-            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(35, 20);
-            this.fileToolStripMenuItem.Text = "File";
-            // 
-            // openOldDAIMODToolStripMenuItem
-            // 
-            this.openOldDAIMODToolStripMenuItem.Name = "openOldDAIMODToolStripMenuItem";
-            this.openOldDAIMODToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
-            this.openOldDAIMODToolStripMenuItem.Text = "Open old DAIMOD...";
-            this.openOldDAIMODToolStripMenuItem.Click += new System.EventHandler(this.openOldDAIMODToolStripMenuItem_Click);
-            // 
-            // toolStripButton1
-            // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(113, 22);
-            this.toolStripButton1.Text = "Export Selected Data";
-            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
-            // 
             // listBox1
             // 
             this.listBox1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -177,30 +201,6 @@
             this.listBox1.Size = new System.Drawing.Size(299, 345);
             this.listBox1.TabIndex = 4;
             this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
-            // 
-            // rtb1
-            // 
-            this.rtb1.DetectUrls = false;
-            this.rtb1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rtb1.Font = new System.Drawing.Font("Courier New", 10F);
-            this.rtb1.Location = new System.Drawing.Point(3, 3);
-            this.rtb1.Name = "rtb1";
-            this.rtb1.Size = new System.Drawing.Size(278, 192);
-            this.rtb1.TabIndex = 3;
-            this.rtb1.Text = "";
-            this.rtb1.WordWrap = false;
-            // 
-            // rtb2
-            // 
-            this.rtb2.DetectUrls = false;
-            this.rtb2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rtb2.Font = new System.Drawing.Font("Courier New", 10F);
-            this.rtb2.Location = new System.Drawing.Point(3, 3);
-            this.rtb2.Name = "rtb2";
-            this.rtb2.Size = new System.Drawing.Size(278, 216);
-            this.rtb2.TabIndex = 3;
-            this.rtb2.Text = "";
-            this.rtb2.WordWrap = false;
             // 
             // hb1
             // 
@@ -228,7 +228,10 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "DAIMODSupportTool";
+            this.ShowIcon = false;
             this.Text = "DAIMODSupportTool";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DAIMODSupportTool_FormClosing);
+            this.Load += new System.EventHandler(this.DAIMODSupportTool_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.toolStrip1.ResumeLayout(false);

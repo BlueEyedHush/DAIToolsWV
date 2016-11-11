@@ -16,6 +16,19 @@ namespace DAIToolsWV.ContentTools
 {
     public partial class EBXTool : Form
     {
+        private TabControl tabCtrl;
+        private TabPage tabPag;
+        public TabPage TabPag
+        {
+            get { return tabPag; }
+            set { tabPag = value; }
+        }
+
+        public TabControl TabCtrl
+        {
+            set { tabCtrl = value; }
+        }
+
         public byte[] ebxdata = null;
         public EBXStream ebx = null;
 
@@ -106,6 +119,20 @@ namespace DAIToolsWV.ContentTools
             t.ExpandAll();
             treeView1.Nodes.Add(t);
             rtb2.Text = ebx.toXML();
+        }
+
+        private void EBXTool_Load(object sender, EventArgs e)
+        {
+            tabCtrl.SelectedTab = tabPag;
+            if (!tabCtrl.Visible)
+                tabCtrl.Visible = true;
+        }
+
+        private void EBXTool_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.tabPag.Dispose();
+            if (!tabCtrl.HasChildren)
+                tabCtrl.Visible = false;
         }
     }
 }

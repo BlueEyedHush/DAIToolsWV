@@ -14,6 +14,19 @@ namespace DAIToolsWV.ModTools
 {
     public partial class ModEditor : Form
     {
+        private TabControl tabCtrl;
+        private TabPage tabPag;
+        public TabPage TabPag
+        {
+            get { return tabPag; }
+            set { tabPag = value; }
+        }
+
+        public TabControl TabCtrl
+        {
+            set { tabCtrl = value; }
+        }
+
         public Mod mod;
         public List<byte[]> dataList;
 
@@ -92,6 +105,20 @@ namespace DAIToolsWV.ModTools
                 mod.Save(d.FileName, false);
                 MessageBox.Show("Done.");
             }
+        }
+
+        private void ModEditor_Load(object sender, EventArgs e)
+        {
+            tabCtrl.SelectedTab = tabPag;
+            if (!tabCtrl.Visible)
+                tabCtrl.Visible = true;
+        }
+
+        private void ModEditor_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.tabPag.Dispose();
+            if (!tabCtrl.HasChildren)
+                tabCtrl.Visible = false;
         }
     }
 }

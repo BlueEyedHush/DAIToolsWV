@@ -100,6 +100,7 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Name = "HexTool";
+            this.ShowIcon = false;
             this.Text = "HexTool";
             this.ResumeLayout(false);
             this.PerformLayout();

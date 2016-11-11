@@ -94,12 +94,12 @@
             this.ebxcontext.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openInEBXToolToolStripMenuItem});
             this.ebxcontext.Name = "ebxcontext";
-            this.ebxcontext.Size = new System.Drawing.Size(156, 26);
+            this.ebxcontext.Size = new System.Drawing.Size(166, 26);
             // 
             // openInEBXToolToolStripMenuItem
             // 
             this.openInEBXToolToolStripMenuItem.Name = "openInEBXToolToolStripMenuItem";
-            this.openInEBXToolToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.openInEBXToolToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
             this.openInEBXToolToolStripMenuItem.Text = "Open in EBX Tool";
             this.openInEBXToolToolStripMenuItem.Click += new System.EventHandler(this.openInEBXToolToolStripMenuItem_Click);
             // 
@@ -162,7 +162,7 @@
             this.toolStripButton20.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton20.Image")));
             this.toolStripButton20.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton20.Name = "toolStripButton20";
-            this.toolStripButton20.Size = new System.Drawing.Size(57, 22);
+            this.toolStripButton20.Size = new System.Drawing.Size(61, 22);
             this.toolStripButton20.Text = "Find Next";
             this.toolStripButton20.Click += new System.EventHandler(this.toolStripButton20_Click);
             // 
@@ -179,7 +179,7 @@
             this.toolStripButton11.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton11.Image")));
             this.toolStripButton11.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton11.Name = "toolStripButton11";
-            this.toolStripButton11.Size = new System.Drawing.Size(30, 22);
+            this.toolStripButton11.Size = new System.Drawing.Size(31, 22);
             this.toolStripButton11.Text = "Hex";
             this.toolStripButton11.Click += new System.EventHandler(this.toolStripButton11_Click);
             // 
@@ -189,7 +189,7 @@
             this.toolStripButton12.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton12.Image")));
             this.toolStripButton12.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton12.Name = "toolStripButton12";
-            this.toolStripButton12.Size = new System.Drawing.Size(30, 22);
+            this.toolStripButton12.Size = new System.Drawing.Size(35, 22);
             this.toolStripButton12.Text = "XML";
             this.toolStripButton12.Click += new System.EventHandler(this.toolStripButton12_Click);
             // 
@@ -204,7 +204,7 @@
             this.toolStripButton13.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton13.Image")));
             this.toolStripButton13.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton13.Name = "toolStripButton13";
-            this.toolStripButton13.Size = new System.Drawing.Size(49, 22);
+            this.toolStripButton13.Size = new System.Drawing.Size(50, 22);
             this.toolStripButton13.Text = "Refresh";
             this.toolStripButton13.Click += new System.EventHandler(this.toolStripButton13_Click);
             // 
@@ -214,7 +214,7 @@
             this.toolStripButton14.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton14.Image")));
             this.toolStripButton14.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton14.Name = "toolStripButton14";
-            this.toolStripButton14.Size = new System.Drawing.Size(65, 22);
+            this.toolStripButton14.Size = new System.Drawing.Size(67, 22);
             this.toolStripButton14.Text = "Export Hex";
             this.toolStripButton14.Click += new System.EventHandler(this.toolStripButton14_Click);
             // 
@@ -224,7 +224,7 @@
             this.toolStripButton15.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton15.Image")));
             this.toolStripButton15.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton15.Name = "toolStripButton15";
-            this.toolStripButton15.Size = new System.Drawing.Size(105, 22);
+            this.toolStripButton15.Size = new System.Drawing.Size(111, 22);
             this.toolStripButton15.Text = "Export All as XML...";
             this.toolStripButton15.Click += new System.EventHandler(this.toolStripButton15_Click);
             // 
@@ -234,7 +234,7 @@
             this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
             this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(74, 22);
+            this.toolStripButton1.Size = new System.Drawing.Size(80, 22);
             this.toolStripButton1.Text = "Make MOD...";
             this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
@@ -270,6 +270,7 @@
             this.Controls.Add(this.toolStrip3);
             this.Controls.Add(this.statusStrip2);
             this.Name = "EBXBrowser";
+            this.ShowIcon = false;
             this.Text = "EBX Browser";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EBXBrowser_FormClosing);
             this.Load += new System.EventHandler(this.EBXBrowser_Load);

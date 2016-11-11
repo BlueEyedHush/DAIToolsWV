@@ -16,6 +16,19 @@ namespace DAIToolsWV.FileTools
 {
     public partial class INITFSTool : Form
     {
+        private TabControl tabCtrl;
+        private TabPage tabPag;
+        public TabPage TabPag
+        {
+            get { return tabPag; }
+            set { tabPag = value; }
+        }
+
+        public TabControl TabCtrl
+        {
+            set { tabCtrl = value; }
+        }
+
         struct FileEntry
         {
             public byte[] data;
@@ -155,6 +168,20 @@ namespace DAIToolsWV.FileTools
             }
             initfs.Save(path);
             RefreshList();
+        }
+
+        private void INITFSTool_Load(object sender, EventArgs e)
+        {
+            tabCtrl.SelectedTab = tabPag;
+            if (!tabCtrl.Visible)
+                tabCtrl.Visible = true;
+        }
+
+        private void INITFSTool_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.tabPag.Dispose();
+            if (!tabCtrl.HasChildren)
+                tabCtrl.Visible = false;
         }
     }
 }

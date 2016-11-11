@@ -17,6 +17,19 @@ namespace DAIToolsWV.FileTools
 {
     public partial class TOCTool : Form
     {
+        private TabControl tabCtrl;
+        private TabPage tabPag;
+        public TabPage TabPag
+        {
+            get { return tabPag; }
+            set { tabPag = value; }
+        }
+
+        public TabControl TabCtrl
+        {
+            set { tabCtrl = value; }
+        }
+
         public TOCFile toc;
         public string basepath;
 
@@ -236,6 +249,20 @@ namespace DAIToolsWV.FileTools
         {
             if (e.KeyChar == (char)13)
                 Helpers.SelectNext(toolStripTextBox1.Text, treeView1);
+        }
+
+        private void TOCTool_Load(object sender, EventArgs e)
+        {
+            tabCtrl.SelectedTab = tabPag;
+            if (!tabCtrl.Visible)
+                tabCtrl.Visible = true;
+        }
+
+        private void TOCTool_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.tabPag.Dispose();
+            if (!tabCtrl.HasChildren)
+                tabCtrl.Visible = false;
         }
     }
     

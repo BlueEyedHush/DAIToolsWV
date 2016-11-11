@@ -109,7 +109,7 @@
             this.withSpaces.Image = ((System.Drawing.Image)(resources.GetObject("withSpaces.Image")));
             this.withSpaces.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.withSpaces.Name = "withSpaces";
-            this.withSpaces.Size = new System.Drawing.Size(68, 22);
+            this.withSpaces.Size = new System.Drawing.Size(73, 22);
             this.withSpaces.Text = "with Spaces";
             // 
             // toolStripButton1
@@ -118,7 +118,7 @@
             this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
             this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(50, 22);
+            this.toolStripButton1.Size = new System.Drawing.Size(53, 22);
             this.toolStripButton1.Text = "Convert";
             this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
@@ -130,6 +130,7 @@
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.toolStrip1);
             this.Name = "HexToString";
+            this.ShowIcon = false;
             this.Text = "HexToString";
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);

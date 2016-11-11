@@ -18,6 +18,19 @@ namespace DAIToolsWV.Browser
 {
     public partial class MeshBrowser : Form
     {
+        private TabControl tabCtrl;
+        private TabPage tabPag;
+        public TabPage TabPag
+        {
+            get { return tabPag; }
+            set { tabPag = value; }
+        }
+
+        public TabControl TabCtrl
+        {
+            set { tabCtrl = value; }
+        }
+
         private List<DBAccess.RESInformation> ttlist = null;
         private List<DBAccess.RESInformation> ttprevlist = null;
         private Thread TresRefresh = null;
@@ -332,6 +345,20 @@ namespace DAIToolsWV.Browser
             timer1.Enabled = false;
             renderer.Init(pictureBox1.Handle, pictureBox1.Width, pictureBox1.Height);
             timer1.Enabled = true;
+        }
+
+        private void MeshBrowser_Load(object sender, EventArgs e)
+        {
+            tabCtrl.SelectedTab = tabPag;
+            if (!tabCtrl.Visible)
+                tabCtrl.Visible = true;
+        }
+
+        private void MeshBrowser_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.tabPag.Dispose();
+            if (!tabCtrl.HasChildren)
+                tabCtrl.Visible = false;
         }
     }
 }

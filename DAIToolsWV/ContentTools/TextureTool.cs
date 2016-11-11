@@ -16,6 +16,18 @@ namespace DAIToolsWV.ContentTools
 {
     public partial class TextureTool : Form
     {
+        private TabControl tabCtrl;
+        private TabPage tabPag;
+        public TabPage TabPag
+        {
+            get { return tabPag; }
+            set { tabPag = value; }
+        }
+
+        public TabControl TabCtrl
+        {
+            set { tabCtrl = value; }
+        }
 
         public DBAccess.TextureInformation[] til;
         public DBAccess.BundleInformation[] bil;
@@ -324,6 +336,20 @@ namespace DAIToolsWV.ContentTools
                     MessageBox.Show("Done.");
                 }
             }
+        }
+
+        private void TextureTool_Load(object sender, EventArgs e)
+        {
+            tabCtrl.SelectedTab = tabPag;
+            if (!tabCtrl.Visible)
+                tabCtrl.Visible = true;
+        }
+
+        private void TextureTool_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.tabPag.Dispose();
+            if (!tabCtrl.HasChildren)
+                tabCtrl.Visible = false;
         }
     }
 }

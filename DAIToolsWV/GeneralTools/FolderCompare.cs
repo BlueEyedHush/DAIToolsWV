@@ -15,6 +15,19 @@ namespace DAIToolsWV.GeneralTools
 {
     public partial class FolderCompare : Form
     {
+        private TabControl tabCtrl;
+        private TabPage tabPag;
+        public TabPage TabPag
+        {
+            get { return tabPag; }
+            set { tabPag = value; }
+        }
+
+        public TabControl TabCtrl
+        {
+            set { tabCtrl = value; }
+        }
+
         public FolderCompare()
         {
             InitializeComponent();
@@ -362,6 +375,20 @@ namespace DAIToolsWV.GeneralTools
             rtb1.SelectionLength = 0;
             rtb1.ScrollToCaret();
             Application.DoEvents();
+        }
+
+        private void FolderCompare_Load(object sender, EventArgs e)
+        {
+            tabCtrl.SelectedTab = tabPag;
+            if (!tabCtrl.Visible)
+                tabCtrl.Visible = true;
+        }
+
+        private void FolderCompare_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.tabPag.Dispose();
+            if (!tabCtrl.HasChildren)
+                tabCtrl.Visible = false;
         }
     }
 }

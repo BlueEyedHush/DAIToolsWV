@@ -12,9 +12,27 @@ namespace DAIToolsWV
 {
     public partial class DebugOutputWindow : Form
     {
+        private TabControl tabCtrl;
+        private TabPage tabPag;
+        public TabPage TabPag
+        {
+            get { return tabPag; }
+            set { tabPag = value; }
+        }
+
+        public TabControl TabCtrl
+        {
+            set { tabCtrl = value; }
+        }
+
         public DebugOutputWindow()
         {
             InitializeComponent();
+        }
+
+        private void DebugOutputWindow_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.tabPag.Dispose();
         }
     }
 }

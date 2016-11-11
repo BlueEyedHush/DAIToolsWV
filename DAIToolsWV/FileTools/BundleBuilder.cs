@@ -15,6 +15,19 @@ namespace DAIToolsWV.FileTools
 {
     public partial class BundleBuilder : Form
     {
+        private TabControl tabCtrl;
+        private TabPage tabPag;
+        public TabPage TabPag
+        {
+            get { return tabPag; }
+            set { tabPag = value; }
+        }
+
+        public TabControl TabCtrl
+        {
+            set { tabCtrl = value; }
+        }
+
         public TOCFile toc;
         public List<bool> SelectForDeletion;
         public List<string> SelectForReplacement;
@@ -484,6 +497,20 @@ namespace DAIToolsWV.FileTools
                 SelectForDeletion[i] = !SelectForDeletion[i];
             RefreshMe();
             listBox1.SelectedIndex = n;
+        }
+
+        private void BundleBuilder_Load(object sender, EventArgs e)
+        {
+            tabCtrl.SelectedTab = tabPag;
+            if (!tabCtrl.Visible)
+                tabCtrl.Visible = true;
+        }
+
+        private void BundleBuilder_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.tabPag.Dispose();
+            if (!tabCtrl.HasChildren)
+                tabCtrl.Visible = false;
         }
     }
 }

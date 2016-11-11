@@ -15,6 +15,19 @@ namespace DAIToolsWV.GeneralTools
 {
     public partial class CATrepair : Form
     {
+        private TabControl tabCtrl;
+        private TabPage tabPag;
+        public TabPage TabPag
+        {
+            get { return tabPag; }
+            set { tabPag = value; }
+        }
+
+        public TabControl TabCtrl
+        {
+            set { tabCtrl = value; }
+        }
+
         public CATFile cat;
 
         public struct DupEntry
@@ -124,6 +137,20 @@ namespace DAIToolsWV.GeneralTools
             }
             File.WriteAllBytes(cat.MyPath, m.ToArray());
             rtb1.AppendText("Done.");
+        }
+
+        private void CATrepair_Load(object sender, EventArgs e)
+        {
+            tabCtrl.SelectedTab = tabPag;
+            if (!tabCtrl.Visible)
+                tabCtrl.Visible = true;
+        }
+
+        private void CATrepair_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.tabPag.Dispose();
+            if (!tabCtrl.HasChildren)
+                tabCtrl.Visible = false;
         }
 
     }

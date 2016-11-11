@@ -17,6 +17,19 @@ namespace DAIToolsWV.Browser
 {
     public partial class RESBrowser : Form
     {
+        private TabControl tabCtrl;
+        private TabPage tabPag;
+        public TabPage TabPag
+        {
+            get { return tabPag; }
+            set { tabPag = value; }
+        }
+
+        public TabControl TabCtrl
+        {
+            set { tabCtrl = value; }
+        }
+
         private List<DBAccess.RESInformation> ttlist = null;
         private List<DBAccess.RESInformation> ttprevlist = null;
         private Thread TresRefresh = null;
@@ -328,6 +341,20 @@ namespace DAIToolsWV.Browser
         private void toolStripButton19_Click(object sender, EventArgs e)
         {
             Helpers.SelectNext(toolStripTextBox1.Text, treeView5);
+        }
+
+        private void RESBrowser_Load(object sender, EventArgs e)
+        {
+            tabCtrl.SelectedTab = tabPag;
+            if (!tabCtrl.Visible)
+                tabCtrl.Visible = true;
+        }
+
+        private void RESBrowser_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.tabPag.Dispose();
+            if (!tabCtrl.HasChildren)
+                tabCtrl.Visible = false;
         }
     }
 }

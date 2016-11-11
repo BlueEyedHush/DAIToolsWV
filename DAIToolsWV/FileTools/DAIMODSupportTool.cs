@@ -16,6 +16,19 @@ namespace DAIToolsWV.FileTools
 {
     public partial class DAIMODSupportTool : Form
     {
+        private TabControl tabCtrl;
+        private TabPage tabPag;
+        public TabPage TabPag
+        {
+            get { return tabPag; }
+            set { tabPag = value; }
+        }
+
+        public TabControl TabCtrl
+        {
+            set { tabCtrl = value; }
+        }
+
         public DAIMODFile mod;
 
         public DAIMODSupportTool()
@@ -63,6 +76,20 @@ namespace DAIToolsWV.FileTools
                 File.WriteAllBytes(d.FileName, mod.Data[n]);
                 MessageBox.Show("Done.");
             }
+        }
+
+        private void DAIMODSupportTool_Load(object sender, EventArgs e)
+        {
+            tabCtrl.SelectedTab = tabPag;
+            if (!tabCtrl.Visible)
+                tabCtrl.Visible = true;
+        }
+
+        private void DAIMODSupportTool_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.tabPag.Dispose();
+            if (!tabCtrl.HasChildren)
+                tabCtrl.Visible = false;
         }
     }
 }

@@ -30,3 +30,11 @@ C:\_CODE\Git\DAIToolsWV\DAILibWV\obj\Debug\DAILibWV.csprojResolveAssemblyReferen
 C:\_CODE\Git\DAIToolsWV\DAILibWV\obj\Debug\DAILibWV.dll
 C:\_CODE\Git\DAIToolsWV\DAILibWV\obj\Debug\DAILibWV.pdb
 D:\CODE\GitHub\DAIToolsWV\DAILibWV\obj\Debug\DAILibWV.csprojResolveAssemblyReference.cache
+C:\DAIToolsWV\DAILibWV\bin\Debug\DAILibWV.dll
+C:\DAIToolsWV\DAILibWV\bin\Debug\DAILibWV.pdb
+C:\DAIToolsWV\DAILibWV\bin\Debug\ICSharpCode.SharpZipLib.dll
+C:\DAIToolsWV\DAILibWV\bin\Debug\System.Data.SQLite.dll
+C:\DAIToolsWV\DAILibWV\bin\Debug\System.Data.SQLite.xml
+C:\DAIToolsWV\DAILibWV\obj\Debug\DAILibWV.csprojResolveAssemblyReference.cache
+C:\DAIToolsWV\DAILibWV\obj\Debug\DAILibWV.dll
+C:\DAIToolsWV\DAILibWV\obj\Debug\DAILibWV.pdb

@@ -15,6 +15,19 @@ namespace DAIToolsWV.Browser
 {
     public partial class FileBrowser : Form
     {
+        private TabControl tabCtrl;
+        private TabPage tabPag;
+        public TabPage TabPag
+        {
+            get { return tabPag; }
+            set { tabPag = value; }
+        }
+
+        public TabControl TabCtrl
+        {
+            set { tabCtrl = value; }
+        }
+
         public FileBrowser()
         {
             InitializeComponent();
@@ -22,6 +35,10 @@ namespace DAIToolsWV.Browser
 
         private void FileBrowser_Load(object sender, EventArgs e)
         {
+            tabCtrl.SelectedTab = tabPag;
+            if (!tabCtrl.Visible)
+                tabCtrl.Visible = true;
+
             RefreshReal();
         }
 
@@ -226,6 +243,13 @@ namespace DAIToolsWV.Browser
                 openInTOCToolToolStripMenuItem.Visible = false;
                 openInSBToolToolStripMenuItem.Visible = true;
             }
+        }
+
+        private void FileBrowser_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.tabPag.Dispose();
+            if (!tabCtrl.HasChildren)
+                tabCtrl.Visible = false;
         }
 
     }

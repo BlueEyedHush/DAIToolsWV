@@ -71,16 +71,13 @@ namespace DAIToolsWV
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DebugOutputWindow));
             this.rtb1 = new DAIToolsWV.TransparentLabel();
             this.SuspendLayout();
-            this.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.DoubleBuffer | ControlStyles.SupportsTransparentBackColor, true);
-            
             // 
             // rtb1
             // 
             this.rtb1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rtb1.Font = new System.Drawing.Font("Courier New", 10, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtb1.Font = new System.Drawing.Font("Courier New", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rtb1.Location = new System.Drawing.Point(0, 0);
             this.rtb1.Name = "rtb1";
             this.rtb1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
@@ -93,12 +90,13 @@ namespace DAIToolsWV
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(292, 273);
             this.Controls.Add(this.rtb1);
             this.Name = "DebugOutputWindow";
+            this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.Text = "Debug";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DebugOutputWindow_FormClosing);
             this.ResumeLayout(false);
 
         }

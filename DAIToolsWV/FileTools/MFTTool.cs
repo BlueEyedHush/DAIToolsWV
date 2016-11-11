@@ -14,6 +14,19 @@ namespace DAIToolsWV.FileTools
 {
     public partial class MFTTool : Form
     {
+        private TabControl tabCtrl;
+        private TabPage tabPag;
+        public TabPage TabPag
+        {
+            get { return tabPag; }
+            set { tabPag = value; }
+        }
+
+        public TabControl TabCtrl
+        {
+            set { tabCtrl = value; }
+        }
+
         byte[] key = File.ReadAllBytes(Path.GetDirectoryName(Application.ExecutablePath) + "\\ext\\keys\\mft_key.bin");
         bool isEncrypted = false;
 
@@ -65,6 +78,20 @@ namespace DAIToolsWV.FileTools
                     data[i] ^= key[i % 0x80];
             }
             File.WriteAllBytes(path, data);
+        }
+
+        private void MFTTool_Load(object sender, EventArgs e)
+        {
+            tabCtrl.SelectedTab = tabPag;
+            if (!tabCtrl.Visible)
+                tabCtrl.Visible = true;
+        }
+
+        private void MFTTool_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.tabPag.Dispose();
+            if (!tabCtrl.HasChildren)
+                tabCtrl.Visible = false;
         }
     }
 }

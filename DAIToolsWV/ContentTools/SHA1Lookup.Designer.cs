@@ -33,6 +33,7 @@
             this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.hb1 = new Be.Windows.Forms.HexBox();
@@ -48,7 +49,6 @@
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.listBox3 = new System.Windows.Forms.ListBox();
             this.rtb3 = new System.Windows.Forms.RichTextBox();
-            this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -93,7 +93,7 @@
             this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
             this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(49, 22);
+            this.toolStripButton1.Size = new System.Drawing.Size(55, 22);
             this.toolStripButton1.Text = "Look Up";
             this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
@@ -103,9 +103,19 @@
             this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
             this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(55, 22);
+            this.toolStripButton2.Size = new System.Drawing.Size(53, 22);
             this.toolStripButton2.Text = "Export...";
             this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
+            // 
+            // toolStripButton3
+            // 
+            this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
+            this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton3.Name = "toolStripButton3";
+            this.toolStripButton3.Size = new System.Drawing.Size(126, 22);
+            this.toolStripButton3.Text = "Find by offset and cas";
+            this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton3_Click);
             // 
             // tabControl1
             // 
@@ -153,7 +163,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(510, 265);
+            this.tabPage2.Size = new System.Drawing.Size(620, 281);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "EBX";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -171,8 +181,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.rtb1);
-            this.splitContainer1.Size = new System.Drawing.Size(504, 259);
-            this.splitContainer1.SplitterDistance = 168;
+            this.splitContainer1.Size = new System.Drawing.Size(614, 275);
+            this.splitContainer1.SplitterDistance = 204;
             this.splitContainer1.TabIndex = 0;
             // 
             // listBox1
@@ -186,7 +196,7 @@
             this.listBox1.Location = new System.Drawing.Point(0, 0);
             this.listBox1.Name = "listBox1";
             this.listBox1.ScrollAlwaysVisible = true;
-            this.listBox1.Size = new System.Drawing.Size(168, 259);
+            this.listBox1.Size = new System.Drawing.Size(204, 275);
             this.listBox1.TabIndex = 4;
             this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
@@ -197,7 +207,7 @@
             this.rtb1.Font = new System.Drawing.Font("Courier New", 10F);
             this.rtb1.Location = new System.Drawing.Point(0, 0);
             this.rtb1.Name = "rtb1";
-            this.rtb1.Size = new System.Drawing.Size(332, 259);
+            this.rtb1.Size = new System.Drawing.Size(406, 275);
             this.rtb1.TabIndex = 2;
             this.rtb1.Text = "";
             this.rtb1.WordWrap = false;
@@ -208,7 +218,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(510, 265);
+            this.tabPage3.Size = new System.Drawing.Size(620, 281);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "RES";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -226,8 +236,8 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.rtb2);
-            this.splitContainer2.Size = new System.Drawing.Size(504, 259);
-            this.splitContainer2.SplitterDistance = 168;
+            this.splitContainer2.Size = new System.Drawing.Size(614, 275);
+            this.splitContainer2.SplitterDistance = 204;
             this.splitContainer2.TabIndex = 1;
             // 
             // listBox2
@@ -241,7 +251,7 @@
             this.listBox2.Location = new System.Drawing.Point(0, 0);
             this.listBox2.Name = "listBox2";
             this.listBox2.ScrollAlwaysVisible = true;
-            this.listBox2.Size = new System.Drawing.Size(168, 259);
+            this.listBox2.Size = new System.Drawing.Size(204, 275);
             this.listBox2.TabIndex = 4;
             this.listBox2.SelectedIndexChanged += new System.EventHandler(this.listBox2_SelectedIndexChanged);
             // 
@@ -252,7 +262,7 @@
             this.rtb2.Font = new System.Drawing.Font("Courier New", 10F);
             this.rtb2.Location = new System.Drawing.Point(0, 0);
             this.rtb2.Name = "rtb2";
-            this.rtb2.Size = new System.Drawing.Size(332, 259);
+            this.rtb2.Size = new System.Drawing.Size(406, 275);
             this.rtb2.TabIndex = 2;
             this.rtb2.Text = "";
             this.rtb2.WordWrap = false;
@@ -263,7 +273,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(510, 265);
+            this.tabPage4.Size = new System.Drawing.Size(620, 281);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Chunks";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -281,8 +291,8 @@
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.Controls.Add(this.rtb3);
-            this.splitContainer3.Size = new System.Drawing.Size(504, 259);
-            this.splitContainer3.SplitterDistance = 168;
+            this.splitContainer3.Size = new System.Drawing.Size(614, 275);
+            this.splitContainer3.SplitterDistance = 204;
             this.splitContainer3.TabIndex = 2;
             // 
             // listBox3
@@ -296,7 +306,7 @@
             this.listBox3.Location = new System.Drawing.Point(0, 0);
             this.listBox3.Name = "listBox3";
             this.listBox3.ScrollAlwaysVisible = true;
-            this.listBox3.Size = new System.Drawing.Size(168, 259);
+            this.listBox3.Size = new System.Drawing.Size(204, 275);
             this.listBox3.TabIndex = 4;
             this.listBox3.SelectedIndexChanged += new System.EventHandler(this.listBox3_SelectedIndexChanged);
             // 
@@ -307,20 +317,10 @@
             this.rtb3.Font = new System.Drawing.Font("Courier New", 10F);
             this.rtb3.Location = new System.Drawing.Point(0, 0);
             this.rtb3.Name = "rtb3";
-            this.rtb3.Size = new System.Drawing.Size(332, 259);
+            this.rtb3.Size = new System.Drawing.Size(406, 275);
             this.rtb3.TabIndex = 2;
             this.rtb3.Text = "";
             this.rtb3.WordWrap = false;
-            // 
-            // toolStripButton3
-            // 
-            this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
-            this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton3.Name = "toolStripButton3";
-            this.toolStripButton3.Size = new System.Drawing.Size(118, 22);
-            this.toolStripButton3.Text = "Find by offset and cas";
-            this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton3_Click);
             // 
             // SHA1Lookup
             // 
@@ -330,7 +330,10 @@
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.toolStrip1);
             this.Name = "SHA1Lookup";
+            this.ShowIcon = false;
             this.Text = "SHA1 Lookup Tool";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SHA1Lookup_FormClosing);
+            this.Load += new System.EventHandler(this.SHA1Lookup_Load);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.tabControl1.ResumeLayout(false);

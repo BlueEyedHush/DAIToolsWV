@@ -16,6 +16,19 @@ namespace DAIToolsWV.FileTools
 {
     public partial class CASContainerCreator : Form
     {
+        private TabControl tabCtrl;
+        private TabPage tabPag;
+        public TabPage TabPag
+        {
+            get { return tabPag; }
+            set { tabPag = value; }
+        }
+
+        public TabControl TabCtrl
+        {
+            set { tabCtrl = value; }
+        }
+
         public byte[] SHA1;
         public byte[] data;
         public byte[] header;
@@ -94,6 +107,20 @@ namespace DAIToolsWV.FileTools
                 fs.Close();
                 MessageBox.Show("Done.");
             }
+        }
+
+        private void CASContainerCreator_Load(object sender, EventArgs e)
+        {
+            tabCtrl.SelectedTab = tabPag;
+            if (!tabCtrl.Visible)
+                tabCtrl.Visible = true;
+        }
+
+        private void CASContainerCreator_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.tabPag.Dispose();
+            if (!tabCtrl.HasChildren)
+                tabCtrl.Visible = false;
         }
     }
 }

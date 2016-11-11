@@ -16,6 +16,18 @@ namespace DAIToolsWV.Browser
 {
     public partial class BundleBrowser : Form
     {
+        private TabControl tabCtrl;
+        private TabPage tabPag;
+
+        public TabPage TabPag { 
+            get { return tabPag; } 
+            set { tabPag = value; }
+        }
+
+        public TabControl TabCtrl {
+            set { tabCtrl = value; }
+        }
+
         private Thread TbundleRefresh = null;
         private DBAccess.BundleInformation[] blist = null;
         private List<DBAccess.BundleInformation> tblist = null;
@@ -28,6 +40,10 @@ namespace DAIToolsWV.Browser
         private void BundleBrowser_Load(object sender, EventArgs e)
         {
             RefreshBundles();
+
+            tabCtrl.SelectedTab = tabPag;
+            if (!tabCtrl.Visible)
+                tabCtrl.Visible = true;
         }
 
         private void RefreshBundles()
@@ -93,6 +109,10 @@ namespace DAIToolsWV.Browser
 
         private void BundleBrowser_FormClosing(object sender, FormClosingEventArgs e)
         {
+            this.tabPag.Dispose();
+            if (!tabCtrl.HasChildren)
+                tabCtrl.Visible = false;
+
             try
             {
                 if (TbundleRefresh != null)

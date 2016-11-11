@@ -33,7 +33,15 @@ namespace DAIToolsWV
         {
             init = true;
             debug = new DebugOutputWindow();
-            OpenMaxed(debug);
+            TabPage tp = new TabPage();
+            tp.Parent = tabControl1;
+            tp.Text = debug.Text;
+            debug.MdiParent = this;
+            debug.Show();
+            debug.TabPag = tp;
+            debug.WindowState = FormWindowState.Maximized;
+            tabControl1.SelectedTab = tp;
+
             Debug.SetBox(debug.rtb1);
             Debug.LogLn("Hello there! Im starting...");
             Application.DoEvents();
@@ -70,13 +78,6 @@ namespace DAIToolsWV
             Debug.LogLn("I'm ready!");
         }
 
-        private void OpenMaxed(Form f)
-        {
-            f.MdiParent = this;
-            f.Show();
-            f.WindowState = FormWindowState.Maximized;
-        }
-
         private void MainForm_Activated(object sender, EventArgs e)
         {
             if(!init)
@@ -85,17 +86,44 @@ namespace DAIToolsWV
 
         private void tOCToolToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenMaxed(new FileTools.TOCTool());
+            FileTools.TOCTool child = new FileTools.TOCTool();
+            child.TabCtrl = this.tabControl1;
+            TabPage tp = new TabPage();
+            tp.Parent = tabControl1;
+            tp.Text = child.Text;
+            child.MdiParent = this;
+            child.Show();
+            child.TabPag = tp;
+            child.WindowState = FormWindowState.Maximized;
+            tabControl1.SelectedTab = tp;
         }
 
         private void sBToolToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenMaxed(new FileTools.SBTool());
+            FileTools.SBTool child = new FileTools.SBTool();
+            child.TabCtrl = this.tabControl1;
+            TabPage tp = new TabPage();
+            tp.Parent = tabControl1;
+            tp.Text = child.Text;
+            child.MdiParent = this;
+            child.Show();
+            child.TabPag = tp;
+            child.WindowState = FormWindowState.Maximized;
+            tabControl1.SelectedTab = tp;
         }
 
         private void mFTToolToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenMaxed(new FileTools.MFTTool());
+            FileTools.MFTTool child = new FileTools.MFTTool();
+            child.TabCtrl = this.tabControl1;
+            TabPage tp = new TabPage();
+            tp.Parent = tabControl1;
+            tp.Text = child.Text;
+            child.MdiParent = this;
+            child.Show();
+            child.TabPag = tp;
+            child.WindowState = FormWindowState.Maximized;
+            tabControl1.SelectedTab = tp;
         }
 
         private void hexToolToolStripMenuItem_Click_1(object sender, EventArgs e)
@@ -106,113 +134,280 @@ namespace DAIToolsWV
 
         private void initFsToolToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenMaxed(new FileTools.INITFSTool());
+            FileTools.INITFSTool child = new FileTools.INITFSTool();
+            child.TabCtrl = this.tabControl1;
+            TabPage tp = new TabPage();
+            tp.Parent = tabControl1;
+            tp.Text = child.Text;
+            child.MdiParent = this;
+            child.Show();
+            child.TabPag = tp;
+            child.WindowState = FormWindowState.Maximized;
+            tabControl1.SelectedTab = tp;
         }
 
         private void eBXToolToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenMaxed(new ContentTools.EBXTool());
-        }
-
-        private void rESETALLToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DialogResult result = MessageBox.Show("Do you really want to reset the database and restart?", "Database", MessageBoxButtons.YesNo);
-            if (result == System.Windows.Forms.DialogResult.Yes)
-            { 
-                if(File.Exists("database.sqlite"))
-                    File.Delete("database.sqlite");
-                Application.Restart();
-            }
+            ContentTools.EBXTool child = new ContentTools.EBXTool();
+            child.TabCtrl = this.tabControl1;
+            TabPage tp = new TabPage();
+            tp.Parent = tabControl1;
+            tp.Text = child.Text;
+            child.MdiParent = this;
+            child.Show();
+            child.TabPag = tp;
+            child.WindowState = FormWindowState.Maximized;
+            tabControl1.SelectedTab = tp;
         }
 
         private void cASContainerCreatorToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenMaxed(new FileTools.CASContainerCreator());
+            FileTools.CASContainerCreator child = new FileTools.CASContainerCreator();
+            child.TabCtrl = this.tabControl1;
+            TabPage tp = new TabPage();
+            tp.Parent = tabControl1;
+            tp.Text = child.Text;
+            child.MdiParent = this;
+            child.Show();
+            child.TabPag = tp;
+            child.WindowState = FormWindowState.Maximized;
+            tabControl1.SelectedTab = tp;
         }
 
         private void textureToolToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenMaxed(new ContentTools.TextureTool());
+            ContentTools.TextureTool child = new ContentTools.TextureTool();
+            child.TabCtrl = this.tabControl1;
+            TabPage tp = new TabPage();
+            tp.Parent = tabControl1;
+            tp.Text = child.Text;
+            child.MdiParent = this;
+            child.Show();
+            child.TabPag = tp;
+            child.WindowState = FormWindowState.Maximized;
+            tabControl1.SelectedTab = tp;
         }
 
         private void modEditorToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenMaxed(new ModTools.ModEditor());
+            ModTools.ModEditor child = new ModTools.ModEditor();
+            child.TabCtrl = this.tabControl1;
+            TabPage tp = new TabPage();
+            tp.Parent = tabControl1;
+            tp.Text = child.Text;
+            child.MdiParent = this;
+            child.Show();
+            child.TabPag = tp;
+            child.WindowState = FormWindowState.Maximized;
+            tabControl1.SelectedTab = tp;
         }
 
         private void modRunnerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenMaxed(new ModTools.ModRunner());
+            ModTools.ModRunner child = new ModTools.ModRunner();
+            child.TabCtrl = this.tabControl1;
+            TabPage tp = new TabPage();
+            tp.Parent = tabControl1;
+            tp.Text = child.Text;
+            child.MdiParent = this;
+            child.Show();
+            child.TabPag = tp;
+            child.WindowState = FormWindowState.Maximized;
+            tabControl1.SelectedTab = tp;
         }
 
         private void bundleBuilderToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenMaxed(new FileTools.BundleBuilder());
+            FileTools.BundleBuilder child = new FileTools.BundleBuilder();
+            child.TabCtrl = this.tabControl1;
+            TabPage tp = new TabPage();
+            tp.Parent = tabControl1;
+            tp.Text = child.Text;
+            child.MdiParent = this;
+            child.Show();
+            child.TabPag = tp;
+            child.WindowState = FormWindowState.Maximized;
+            tabControl1.SelectedTab = tp;
         }
 
         private void fileBrowserToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenMaxed(new Browser.FileBrowser());
+            Browser.FileBrowser child = new Browser.FileBrowser();
+            child.TabCtrl = this.tabControl1;
+            TabPage tp = new TabPage();
+            tp.Parent = tabControl1;
+            tp.Text = child.Text;
+            child.MdiParent = this;
+            child.Show();
+            child.TabPag = tp;
+            child.WindowState = FormWindowState.Maximized;
+            tabControl1.SelectedTab = tp;
         }
 
         private void bundleBrowserToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenMaxed(new Browser.BundleBrowser());
+            Browser.BundleBrowser child = new Browser.BundleBrowser();
+            child.TabCtrl = this.tabControl1;
+            TabPage tp = new TabPage();
+            tp.Parent = tabControl1;
+            tp.Text = child.Text;
+            child.MdiParent = this;
+            child.Show();
+            child.TabPag = tp;
+            child.WindowState = FormWindowState.Maximized;
+            tabControl1.SelectedTab = tp;
         }
 
         private void eBXBrowserToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenMaxed(new Browser.EBXBrowser());
+            Browser.EBXBrowser child = new Browser.EBXBrowser();
+            child.TabCtrl = this.tabControl1;
+            TabPage tp = new TabPage();
+            tp.Parent = tabControl1;
+            tp.Text = child.Text;
+            child.MdiParent = this;
+            child.Show();
+            child.TabPag = tp;
+            child.WindowState = FormWindowState.Maximized;
+            tabControl1.SelectedTab = tp;
         }
 
         private void textureBrowserToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenMaxed(new Browser.TextureBrowser());
+            Browser.TextureBrowser child = new Browser.TextureBrowser();
+            child.TabCtrl = this.tabControl1;
+            TabPage tp = new TabPage();
+            tp.Parent = tabControl1;
+            tp.Text = child.Text;
+            child.MdiParent = this;
+            child.Show();
+            child.TabPag = tp;
+            child.WindowState = FormWindowState.Maximized;
+            tabControl1.SelectedTab = tp;
         }
 
         private void talktableToolToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenMaxed(new ContentTools.TalktableTool());
+            ContentTools.TalktableTool child = new ContentTools.TalktableTool();
+            child.TabCtrl = this.tabControl1;
+            TabPage tp = new TabPage();
+            tp.Parent = tabControl1;
+            tp.Text = child.Text;
+            child.MdiParent = this;
+            child.Show();
+            child.TabPag = tp;
+            child.WindowState = FormWindowState.Maximized;
+            tabControl1.SelectedTab = tp;
         }
 
         private void sHA1LookupToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            OpenMaxed(new ContentTools.SHA1Lookup());
+            ContentTools.SHA1Lookup child = new ContentTools.SHA1Lookup();
+            child.TabCtrl = this.tabControl1;
+            TabPage tp = new TabPage();
+            tp.Parent = tabControl1;
+            tp.Text = child.Text;
+            child.MdiParent = this;
+            child.Show();
+            child.TabPag = tp;
+            child.WindowState = FormWindowState.Maximized;
+            tabControl1.SelectedTab = tp;
         }
 
         private void hexToStringToolToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenMaxed(new GeneralTools.HexToString());
+            Form f = new GeneralTools.HexToString();
+            f.Show();
         }
 
         private void cATRepairToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenMaxed(new GeneralTools.CATrepair());
+            GeneralTools.CATrepair child = new GeneralTools.CATrepair();
+            child.TabCtrl = this.tabControl1;
+            TabPage tp = new TabPage();
+            tp.Parent = tabControl1;
+            tp.Text = child.Text;
+            child.MdiParent = this;
+            child.Show();
+            child.TabPag = tp;
+            child.WindowState = FormWindowState.Maximized;
+            tabControl1.SelectedTab = tp;
         }
 
         private void folderCompareToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenMaxed(new GeneralTools.FolderCompare());
+            GeneralTools.FolderCompare child = new GeneralTools.FolderCompare();
+            child.TabCtrl = this.tabControl1;
+            TabPage tp = new TabPage();
+            tp.Parent = tabControl1;
+            tp.Text = child.Text;
+            child.MdiParent = this;
+            child.Show();
+            child.TabPag = tp;
+            child.WindowState = FormWindowState.Maximized;
+            tabControl1.SelectedTab = tp;
         }
 
         private void rESBrowserToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenMaxed(new Browser.RESBrowser());
+            Browser.RESBrowser child = new Browser.RESBrowser();
+            child.TabCtrl = this.tabControl1;
+            TabPage tp = new TabPage();
+            tp.Parent = tabControl1;
+            tp.Text = child.Text;
+            child.MdiParent = this;
+            child.Show();
+            child.TabPag = tp;
+            child.WindowState = FormWindowState.Maximized;
+            tabControl1.SelectedTab = tp;
         }
 
         private void meshBrowserToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenMaxed(new Browser.MeshBrowser());
+            Browser.MeshBrowser child = new Browser.MeshBrowser();
+            child.TabCtrl = this.tabControl1;
+            TabPage tp = new TabPage();
+            tp.Parent = tabControl1;
+            tp.Text = child.Text;
+            child.MdiParent = this;
+            child.Show();
+            child.TabPag = tp;
+            child.WindowState = FormWindowState.Maximized;
+            tabControl1.SelectedTab = tp;
         }
 
         private void meshToolToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenMaxed(new ContentTools.MeshTool());
+            ContentTools.MeshTool child = new ContentTools.MeshTool();
+            child.TabCtrl = this.tabControl1;
+            TabPage tp = new TabPage();
+            tp.Parent = tabControl1;
+            tp.Text = child.Text;
+            child.MdiParent = this;
+            child.Show();
+            child.TabPag = tp;
+            child.WindowState = FormWindowState.Maximized;
+            tabControl1.SelectedTab = tp;
         }
 
         private void supportDAIMODToolToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenMaxed(new FileTools.DAIMODSupportTool());
+            FileTools.DAIMODSupportTool child = new FileTools.DAIMODSupportTool();
+            child.TabCtrl = this.tabControl1;
+            TabPage tp = new TabPage();
+            tp.Parent = tabControl1;
+            tp.Text = child.Text;
+            child.MdiParent = this;
+            child.Show();
+            child.TabPag = tp;
+            child.WindowState = FormWindowState.Maximized;
+            tabControl1.SelectedTab = tp;
+        }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tabControl1.SelectedIndex > -1)
+                this.MdiChildren[tabControl1.SelectedIndex].Select();
         }
     }
 }
