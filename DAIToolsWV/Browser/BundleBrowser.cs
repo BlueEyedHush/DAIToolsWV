@@ -39,11 +39,8 @@ namespace DAIToolsWV.Browser
 
         private void BundleBrowser_Load(object sender, EventArgs e)
         {
-            RefreshBundles();
-
             tabCtrl.SelectedTab = tabPag;
-            if (!tabCtrl.Visible)
-                tabCtrl.Visible = true;
+            RefreshBundles();
         }
 
         private void RefreshBundles()
@@ -110,8 +107,6 @@ namespace DAIToolsWV.Browser
         private void BundleBrowser_FormClosing(object sender, FormClosingEventArgs e)
         {
             this.tabPag.Dispose();
-            if (!tabCtrl.HasChildren)
-                tabCtrl.Visible = false;
 
             try
             {

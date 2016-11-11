@@ -43,8 +43,6 @@ namespace DAIToolsWV.Browser
         private void EBXBrowser_Load(object sender, EventArgs e)
         {
             tabCtrl.SelectedTab = tabPag;
-            if (!tabCtrl.Visible)
-                tabCtrl.Visible = true;
 
             toolStripComboBox1.Items.Clear();
             toolStripComboBox1.Items.Add("CAS Patch Type - 0 (Normal/None)");
@@ -57,8 +55,6 @@ namespace DAIToolsWV.Browser
         private void EBXBrowser_FormClosing(object sender, FormClosingEventArgs e)
         {
             this.tabPag.Dispose();
-            if (!tabCtrl.HasChildren)
-                tabCtrl.Visible = false;
 
             try
             {
@@ -117,11 +113,12 @@ namespace DAIToolsWV.Browser
                     if (ebx.casPatchType == casptype)
                     {
                         t = Helpers.AddPath(t, ebx.ebxname, "", '/');
-                        if (count++ % 10000 == 0)
+                        if (count % 10000 == 0)
                         {
-                            ebxstatus.Text = "Preparing... " + Helpers.GetWaiter(waitcounter++);
+                            ebxstatus.Text = "Loaded ebx : " + count;
                             Application.DoEvents();
                         }
+                        count++;
                     }
                 treeView4.Nodes.Add(t);
                 t.Expand();

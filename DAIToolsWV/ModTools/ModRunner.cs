@@ -1376,15 +1376,11 @@ namespace DAIToolsWV.ModTools
         private void ModRunner_Load(object sender, EventArgs e)
         {
             tabCtrl.SelectedTab = tabPag;
-            if (!tabCtrl.Visible)
-                tabCtrl.Visible = true;
         }
 
         private void ModRunner_FormClosing(object sender, FormClosingEventArgs e)
         {
             this.tabPag.Dispose();
-            if (!tabCtrl.HasChildren)
-                tabCtrl.Visible = false;
         }
     }
 }

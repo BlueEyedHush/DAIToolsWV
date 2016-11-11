@@ -135,12 +135,10 @@ C:\DAIToolsWV\DAIToolsWV\bin\Debug\DAIToolsWV.exe
 C:\DAIToolsWV\DAIToolsWV\bin\Debug\DAIToolsWV.pdb
 C:\DAIToolsWV\DAIToolsWV\bin\Debug\Be.Windows.Forms.HexBox.dll
 C:\DAIToolsWV\DAIToolsWV\bin\Debug\DAILibWV.dll
-C:\DAIToolsWV\DAIToolsWV\bin\Debug\System.Data.SQLite.dll
 C:\DAIToolsWV\DAIToolsWV\bin\Debug\ICSharpCode.SharpZipLib.dll
 C:\DAIToolsWV\DAIToolsWV\bin\Debug\Be.Windows.Forms.HexBox.pdb
 C:\DAIToolsWV\DAIToolsWV\bin\Debug\Be.Windows.Forms.HexBox.xml
 C:\DAIToolsWV\DAIToolsWV\bin\Debug\DAILibWV.pdb
-C:\DAIToolsWV\DAIToolsWV\bin\Debug\System.Data.SQLite.xml
 C:\DAIToolsWV\DAIToolsWV\obj\Debug\DAIToolsWV.csprojResolveAssemblyReference.cache
 C:\DAIToolsWV\DAIToolsWV\obj\Debug\DAIToolsWV.Browser.BundleBrowser.resources
 C:\DAIToolsWV\DAIToolsWV\obj\Debug\DAIToolsWV.Browser.EBXBrowser.resources

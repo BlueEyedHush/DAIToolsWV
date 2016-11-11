@@ -75,13 +75,6 @@ namespace DAIToolsWV.Browser
         public void RefreshRESThread(object obj)
         {
             string type = (string)obj;
-            this.Invoke(new Action(delegate
-            {
-                splitContainer4.Visible = false;
-                toolStrip4.Enabled = false;
-                status.Text = "Refreshing...";
-            }
-            ));
             ttlist = new List<DBAccess.RESInformation>();
             ttlist.AddRange(DBAccess.GetRESInformationsByType(type));
             this.Invoke(new Action(delegate
@@ -346,15 +339,11 @@ namespace DAIToolsWV.Browser
         private void RESBrowser_Load(object sender, EventArgs e)
         {
             tabCtrl.SelectedTab = tabPag;
-            if (!tabCtrl.Visible)
-                tabCtrl.Visible = true;
         }
 
         private void RESBrowser_FormClosing(object sender, FormClosingEventArgs e)
         {
             this.tabPag.Dispose();
-            if (!tabCtrl.HasChildren)
-                tabCtrl.Visible = false;
         }
     }
 }

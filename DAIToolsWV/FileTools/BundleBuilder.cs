@@ -502,15 +502,11 @@ namespace DAIToolsWV.FileTools
         private void BundleBuilder_Load(object sender, EventArgs e)
         {
             tabCtrl.SelectedTab = tabPag;
-            if (!tabCtrl.Visible)
-                tabCtrl.Visible = true;
         }
 
         private void BundleBuilder_FormClosing(object sender, FormClosingEventArgs e)
         {
             this.tabPag.Dispose();
-            if (!tabCtrl.HasChildren)
-                tabCtrl.Visible = false;
         }
     }
 }

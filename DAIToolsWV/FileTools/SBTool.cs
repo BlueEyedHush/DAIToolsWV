@@ -139,8 +139,6 @@ namespace DAIToolsWV.FileTools
         private void SBTool_Load(object sender, EventArgs e)
         {
             tabCtrl.SelectedTab = tabPag;
-            if (!tabCtrl.Visible)
-                tabCtrl.Visible = true; 
             
             types = DBAccess.GetUsedRESTypes();
             List<string> tmp = new List<string>();
@@ -443,8 +441,6 @@ namespace DAIToolsWV.FileTools
         private void SBTool_FormClosing(object sender, FormClosingEventArgs e)
         {
             this.tabPag.Dispose();
-            if (!tabCtrl.HasChildren)
-                tabCtrl.Visible = false;
         }
     }
 }

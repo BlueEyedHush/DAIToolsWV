@@ -173,15 +173,11 @@ namespace DAIToolsWV.FileTools
         private void INITFSTool_Load(object sender, EventArgs e)
         {
             tabCtrl.SelectedTab = tabPag;
-            if (!tabCtrl.Visible)
-                tabCtrl.Visible = true;
         }
 
         private void INITFSTool_FormClosing(object sender, FormClosingEventArgs e)
         {
             this.tabPag.Dispose();
-            if (!tabCtrl.HasChildren)
-                tabCtrl.Visible = false;
         }
     }
 }

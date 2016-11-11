@@ -487,21 +487,49 @@ namespace DAILibWV
         {
             string[] parts = path.Split(splitter);
             TreeNode f = null;
-            foreach (TreeNode c in t.Nodes)
-                if (c.Text == parts[0].ToLower())
-                {
-                    f = c;
-                    break;
-                }
-            if (f == null)
+            if (parts.Length > 1)
             {
-                f = new TreeNode(parts[0].ToLower());
-                if (parts.Length == 1)
-                    f.Name = sha1;
-                else
-                    f.Name = "";
-                t.Nodes.Add(f);
+                foreach (TreeNode c in t.Nodes) // try to find a matching node as prefix
+                {
+                    if (c.Text == parts[0].ToLower())
+                    {
+                        f = c;
+                        break;
+                    }
+                }
+                if (f == null)
+                {
+                    f = new TreeNode(parts[0].ToLower());
+                    if (parts.Length == 1)
+                    {
+                        f.Name = sha1;
+                    }
+                    else
+                        f.Name = "";
+                    t.Nodes.Add(f);
+                }
             }
+            else
+            {
+                bool found = false;
+
+                foreach (TreeNode c in t.Nodes) 
+                {
+                    if (c.Text == parts[0].ToLower())
+                    {
+                        if (c.GetNodeCount(true) == 0) // try to find a duplicate end node
+                            found = true;
+                        break;
+                    }
+                }
+                if (!found)
+                {
+                    f = new TreeNode(parts[0].ToLower());
+                    f.Name = sha1;
+                    t.Nodes.Add(f);
+                }         
+            }
+            
             if (parts.Length > 1)
             {
                 string subpath = path.Substring(parts[0].Length + 1, path.Length - 1 - parts[0].Length);
