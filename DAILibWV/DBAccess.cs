@@ -14,6 +14,8 @@ namespace DAILibWV
 {
     public static class DBAccess
     {
+        public static bool DETAILED_CHUNK_LOGGING = true;
+
         public static string dbpath = Path.GetDirectoryName(Application.ExecutablePath) + "\\database.sqlite";
         public static readonly string TYPE_BASEGAME = "b";
         public static readonly string TYPE_UPDATE = "u";
@@ -342,105 +344,93 @@ namespace DAILibWV
         {
             Debug.LogLn(" EBX:" + b.ebx.Count + " RES:" + b.res.Count + " CHUNK:" + b.chunk.Count, true);
             int bundleid = (int)GetLastRowId(con);
-            TOCInformation toci = GetTocInformationByIndex(tocid);
+            TOCInformation toci = GetTocInformationByIndex(tocid, con);
 
-            using (var transaction = con.BeginTransaction())
-            {
-                SQLCommand("INSERT INTO bundles (tocfile, frostid, offset, size, base, delta) VALUES (" + tocid + ",'" + info.id + "'," + info.offset + ", " + info.size + ", '" + info.isbase + "', '" + info.isdelta + "' )", con);
-                if (b.ebx != null)
-                    foreach (Bundle.ebxtype ebx in b.ebx)
-                        try
+            SQLCommand("INSERT INTO bundles (tocfile, frostid, offset, size, base, delta) VALUES (" + tocid + ",'" + info.id + "'," + info.offset + ", " + info.size + ", '" + info.isbase + "', '" + info.isdelta + "' )", con);
+            if (b.ebx != null)
+                foreach (Bundle.ebxtype ebx in b.ebx)
+                    try
+                    {
+                        if (ebx.name != null && ebx.originalSize != null && ebx.size != null)
                         {
-                            if (ebx.name != null && ebx.originalSize != null && ebx.size != null)
+                            EBXInformation inf = new EBXInformation();
+                            inf.basesha1 = Helpers.ByteArrayToHexString(ebx.baseSha1);
+                            inf.bundlepath = b.path;
+                            inf.casPatchType = ebx.casPatchType;
+                            inf.deltasha1 = Helpers.ByteArrayToHexString(ebx.deltaSha1);
+                            inf.ebxname = ebx.name;
+                            inf.incas = incas;
+                            inf.isbase = info.isbase;
+                            inf.isdelta = info.isdelta;
+                            if (toci.type == TYPE_BASEGAME)
+                                inf.isbasegamefile = true;
+                            if (toci.type == TYPE_UPDATE)
+                                inf.isDLC = true;
+                            if (toci.type == TYPE_PATCH)
+                                inf.isPatch = true;
+                            inf.offset = info.offset;
+                            inf.sha1 = Helpers.ByteArrayToHexString(ebx.Sha1);
+                            inf.size = info.size;
+                            inf.tocfilepath = toci.path;
+                            byte[] data = new byte[0];
+                            if (inf.incas)
+                                data = SHA1Access.GetDataBySha1(ebx.Sha1, 0x38);
+                            else
                             {
-                                EBXInformation inf = new EBXInformation();
-                                inf.basesha1 = Helpers.ByteArrayToHexString(ebx.baseSha1);
-                                inf.bundlepath = b.path;
-                                inf.casPatchType = ebx.casPatchType;
-                                inf.deltasha1 = Helpers.ByteArrayToHexString(ebx.deltaSha1);
-                                inf.ebxname = ebx.name;
-                                inf.incas = incas;
-                                inf.isbase = info.isbase;
-                                inf.isdelta = info.isdelta;
-                                if (toci.type == TYPE_BASEGAME)
-                                    inf.isbasegamefile = true;
-                                if (toci.type == TYPE_UPDATE)
-                                    inf.isDLC = true;
-                                if (toci.type == TYPE_PATCH)
-                                    inf.isPatch = true;
-                                inf.offset = info.offset;
-                                inf.sha1 = Helpers.ByteArrayToHexString(ebx.Sha1);
-                                inf.size = info.size;
-                                inf.tocfilepath = toci.path;
-                                byte[] data = new byte[0];
-                                if (inf.incas)
-                                    data = SHA1Access.GetDataBySha1(ebx.Sha1, 0x38);
-                                else
-                                {
-                                    BinaryBundle bb = null;
-                                    foreach (AddEBXHelpStruct h in aehelp)
-                                        if (h.tocpath == inf.tocfilepath && h.bpath == inf.bundlepath)
-                                        {
-                                            bb = h.b;
-                                            break;
-                                        }
-                                    if (bb == null)
+                                BinaryBundle bb = null;
+                                foreach (AddEBXHelpStruct h in aehelp)
+                                    if (h.tocpath == inf.tocfilepath && h.bpath == inf.bundlepath)
                                     {
-                                        TOCFile toc = new TOCFile(inf.tocfilepath);
-                                        byte[] bundledata = toc.ExportBundleDataByPath(inf.bundlepath);
-                                        bb = new BinaryBundle(new MemoryStream(bundledata));
-                                        AddEBXHelpStruct h = new AddEBXHelpStruct();
-                                        h.tocpath = inf.tocfilepath;
-                                        h.bpath = inf.bundlepath;
-                                        h.b = bb;
-                                        if (aehelp.Count > 10)
-                                            aehelp.RemoveAt(0);
+                                        bb = h.b;
+                                        break;
                                     }
-                                    foreach (BinaryBundle.EbxEntry ebx2 in bb.EbxList)
-                                        if (inf.ebxname == ebx2._name)
-                                            data = ebx2._data;
+                                if (bb == null)
+                                {
+                                    TOCFile toc = new TOCFile(inf.tocfilepath);
+                                    byte[] bundledata = toc.ExportBundleDataByPath(inf.bundlepath);
+                                    bb = new BinaryBundle(new MemoryStream(bundledata));
+                                    AddEBXHelpStruct h = new AddEBXHelpStruct();
+                                    h.tocpath = inf.tocfilepath;
+                                    h.bpath = inf.bundlepath;
+                                    h.b = bb;
+                                    if (aehelp.Count > 10)
+                                        aehelp.RemoveAt(0);
                                 }
-                                inf.guid = Helpers.ByteArrayToHexString(data, 0x28, 0x10);
-                                AddEBXLUTFile(inf, con);
+                                foreach (BinaryBundle.EbxEntry ebx2 in bb.EbxList)
+                                    if (inf.ebxname == ebx2._name)
+                                        data = ebx2._data;
                             }
+                            inf.guid = Helpers.ByteArrayToHexString(data, 0x28, 0x10);
+                            AddEBXLUTFile(inf, con);
                         }
-                        catch (Exception ex)
-                        {
-                            throw ex;
-                        }
-                transaction.Commit();
-            }
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
 
-            using (var transaction = con.BeginTransaction())
-            {
-                if (b.res != null)
-                    foreach (Bundle.restype res in b.res)
-                        try
-                        {
-                            if (res.name != null)
-                                AddRESFile(res.name, res.SHA1, res.rtype, bundleid, con);
-                        }
-                        catch (Exception ex)
-                        {
-                            throw ex;
-                        }
-                transaction.Commit();
-            }
+            if (b.res != null)
+                foreach (Bundle.restype res in b.res)
+                    try
+                    {
+                        if (res.name != null)
+                            AddRESFile(res.name, res.SHA1, res.rtype, bundleid, con);
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
 
-            using (var transaction = con.BeginTransaction())
-            {
-                if (b.chunk != null)
-                    foreach (Bundle.chunktype chunk in b.chunk)
-                        try
-                        {
-                            AddChunk(chunk.id, chunk.SHA1, bundleid, con);
-                        }
-                        catch (Exception ex)
-                        {
-                            throw ex;
-                        }
-                transaction.Commit();
-            }
+            if (b.chunk != null)
+                foreach (Bundle.chunktype chunk in b.chunk)
+                    try
+                    {
+                        AddChunk(chunk.id, chunk.SHA1, bundleid, con);
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
         }
 
         private struct AddEBXHelpStruct
@@ -997,23 +987,27 @@ namespace DAILibWV
 
         public static TOCInformation GetTocInformationByIndex(int index)
         {
-            TOCInformation res = new TOCInformation();
             using (SQLiteConnection con = GetConnection())
             {
                 con.Open();
-                using (SQLiteDataReader reader = getAllWhere("tocfiles", "id = " + index, con))
+                return GetTocInformationByIndex(index, con);
+            }
+        }
+
+        public static TOCInformation GetTocInformationByIndex(int index, SQLiteConnection con)
+        {
+            TOCInformation res = new TOCInformation();
+            using (SQLiteDataReader reader = getAllWhere("tocfiles", "id = " + index, con))
+            {
+                if (reader.Read())
                 {
-                    if (reader.Read())
-                    {
-                        res.index = index;
-                        res.path = reader.GetString(1);
-                        res.md5 = reader.GetString(2);
-                        res.incas = reader.GetString(3) == "True";
-                        res.type = reader.GetString(4);
-                    }
+                    res.index = index;
+                    res.path = reader.GetString(1);
+                    res.md5 = reader.GetString(2);
+                    res.incas = reader.GetString(3) == "True";
+                    res.type = reader.GetString(4);
                 }
             }
-
             return res;
         }
 
@@ -1152,53 +1146,74 @@ namespace DAILibWV
                     TOCFile tocfile = new TOCFile(file);
                     int counter2 = 0;
 
-                    foreach (TOCFile.TOCBundleInfoStruct info in tocfile.bundles)
+                    using (var transaction = con.BeginTransaction())
                     {
-                        counter2++;
-                        Bundle b;
-                        string pathsb = Helpers.GetFileNameWithOutExtension(file) + ".sb";
-                        FileStream fs = new FileStream(pathsb, FileMode.Open, FileAccess.Read);
-                        fs.Seek(0, SeekOrigin.End);
-                        long filesize = fs.Position;
-                        if (info.offset > filesize)
+                        foreach (TOCFile.TOCBundleInfoStruct info in tocfile.bundles)
                         {
-                            fs.Close();
-                            continue;
-                        }
-                        fs.Seek(info.offset, 0);
-                        byte[] buff = new byte[info.size];
-                        fs.Read(buff, 0, info.size);
-                        if (tocfile.iscas)
-                        {
-                            if (buff[0] != 0x82)
+                            counter2++;
+                            Bundle b;
+                            string pathsb = Helpers.GetFileNameWithOutExtension(file) + ".sb";
+                            FileStream fs = new FileStream(pathsb, FileMode.Open, FileAccess.Read);
+                            fs.Seek(0, SeekOrigin.End);
+                            long filesize = fs.Position;
+                            if (info.offset > filesize)
+                            {
+                                fs.Close();
                                 continue;
-                            List<BJSON.Entry> list = new List<BJSON.Entry>();
-                            BJSON.ReadEntries(new MemoryStream(buff), list);
-                            b = Bundle.Create(list[0]);
+                            }
+                            fs.Seek(info.offset, 0);
+                            byte[] buff = new byte[info.size];
+                            fs.Read(buff, 0, info.size);
+                            if (tocfile.iscas)
+                            {
+                                if (buff[0] != 0x82)
+                                    continue;
+                                List<BJSON.Entry> list = new List<BJSON.Entry>();
+                                BJSON.ReadEntries(new MemoryStream(buff), list);
+                                b = Bundle.Create(list[0]);
+                            }
+                            else
+                            {
+                                uint magic = BitConverter.ToUInt32(buff, 4);
+                                if (magic != 0xd58e799d)
+                                    continue;
+                                b = Bundle.Create(buff, true);
+                            }
+                            string log = " adding bundle: " + (counter2) + "/" + tocfile.bundles.Count + " ";
+                            if (info.isbase) log += "ISBASEG ";
+                            if (info.isdelta) log += "ISDELTA ";
+                            log += "ID: " + info.id;
+                            Debug.Log(log, true);
+                            AddBundle(fileids[counter - 1], tocfile.iscas, b, info, con);
                         }
-                        else
-                        {
-                            uint magic = BitConverter.ToUInt32(buff, 4);
-                            if (magic != 0xd58e799d)
-                                continue;
-                            b = Bundle.Create(buff, true);
-                        }
-                        string log = " adding bundle: " + (counter2) + "/" + tocfile.bundles.Count + " ";
-                        if (info.isbase) log += "ISBASEG ";
-                        if (info.isdelta) log += "ISDELTA ";
-                        log += "ID: " + info.id;
-                        Debug.Log(log, true);
-                        AddBundle(fileids[counter - 1], tocfile.iscas, b, info, con);
+
+                        transaction.Commit();
                     }
+
                     counter2 = 0;
                     using (var transaction = con.BeginTransaction())
                     {
                         foreach (TOCFile.TOCChunkInfoStruct info in tocfile.chunks)
                         {
                             AddGlobalChunk(fileids[counter - 1], info.id, info.sha1, info.offset, info.size, con);
-                            Debug.LogLn(" adding chunk: " + (counter2) + "/" + tocfile.chunks.Count + " " + Helpers.ByteArrayToHexString(info.id), counter2 % 1000 == 0);
+
+                            if (DETAILED_CHUNK_LOGGING)
+                                Debug.LogLn(
+                                    " adding chunk: " + (counter2) + "/" + tocfile.chunks.Count + " " +
+                                    Helpers.ByteArrayToHexString(info.id), counter2 % 1000 == 0);
+                            else
+                            {
+                                int loadedChunks = counter2 + 1;
+                                if (loadedChunks % 1000 == 0)
+                                    Debug.LogLn(" Added: " + loadedChunks + "/" + tocfile.chunks.Count + " chunks.");
+                            }
+
                             counter2 += 1;
                         }
+
+                        if (!DETAILED_CHUNK_LOGGING && tocfile.chunks.Count > 0)
+                            Debug.LogLn(" Loaded " + counter2 + " chunks.");
+
                         transaction.Commit();
                     }
 
