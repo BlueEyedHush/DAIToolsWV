@@ -646,86 +646,94 @@ namespace DAILibWV
         public static BundleInformation[] GetBundleInformationById(string path)
         {
             List<BundleInformation> result = new List<BundleInformation>();
-            SQLiteConnection con = GetConnection();
-            con.Open();
-            SQLiteDataReader reader = getAllJoinedWhere("bundles", "tocfiles", "tocfile", "id", "lower(bundles.frostid) = '" + path.ToLower() + "'", con);
-            int count = 0;
-            while (reader.Read())
+            using (SQLiteConnection con = GetConnection())
             {
-                if (count++ % 1000 == 0)
-                    Application.DoEvents();
-                BundleInformation bi = new BundleInformation();
-                bi.index = reader.GetInt32(0);
-                bi.tocIndex = reader.GetInt32(1);
-                bi.bundlepath = reader.GetString(2).ToLower();
-                bi.offset = reader.GetInt32(3);
-                bi.size = reader.GetInt32(4);
-                bi.isbase = reader.GetString(5) == "True";
-                bi.isdelta = reader.GetString(6) == "True";
-                bi.filepath = reader.GetString(8).ToLower();
-                bi.incas = reader.GetString(10) == "True";
-                switch (reader.GetString(11))
+                con.Open();
+                using (SQLiteDataReader reader = getAllJoinedWhere("bundles", "tocfiles", "tocfile", "id",
+                    "lower(bundles.frostid) = '" + path.ToLower() + "'", con))
                 {
-                    case "b":
-                        bi.isbasegamefile = true;
-                        break;
-                    case "u":
-                        bi.isDLC = true;
-                        break;
-                    case "p":
-                        bi.isPatch = true;
-                        break;
+                    int count = 0;
+                    while (reader.Read())
+                    {
+                        if (count++ % 1000 == 0)
+                            Application.DoEvents();
+                        BundleInformation bi = new BundleInformation();
+                        bi.index = reader.GetInt32(0);
+                        bi.tocIndex = reader.GetInt32(1);
+                        bi.bundlepath = reader.GetString(2).ToLower();
+                        bi.offset = reader.GetInt32(3);
+                        bi.size = reader.GetInt32(4);
+                        bi.isbase = reader.GetString(5) == "True";
+                        bi.isdelta = reader.GetString(6) == "True";
+                        bi.filepath = reader.GetString(8).ToLower();
+                        bi.incas = reader.GetString(10) == "True";
+                        switch (reader.GetString(11))
+                        {
+                            case "b":
+                                bi.isbasegamefile = true;
+                                break;
+                            case "u":
+                                bi.isDLC = true;
+                                break;
+                            case "p":
+                                bi.isPatch = true;
+                                break;
+                        }
+                        result.Add(bi);
+                    }
                 }
-                result.Add(bi);
             }
-            con.Close();
+            ;
             return result.ToArray();
         }
 
         public static EBXInformation[] GetEBXInformation(ToolStripStatusLabel label)
         {
             List<EBXInformation> result = new List<EBXInformation>();
-            SQLiteConnection con = GetConnection();
-            con.Open();
-            SQLiteDataReader reader = getAll("ebxlut", con);
-            int count = 0;
-            int animcount = 0;
-            while (reader.Read())
+            using (SQLiteConnection con = GetConnection())
             {
-                EBXInformation ebx = new EBXInformation();
-                ebx.ebxname = reader.GetString(1);
-                ebx.sha1 = reader.GetString(2);
-                ebx.basesha1 = reader.GetString(3);
-                ebx.deltasha1 = reader.GetString(4);
-                ebx.casPatchType = reader.GetInt32(5);
-                ebx.guid = reader.GetString(6);
-                ebx.bundlepath = reader.GetString(7);
-                ebx.offset = reader.GetInt32(8);
-                ebx.size = reader.GetInt32(9);
-                ebx.isbase = reader.GetString(10) == "True";
-                ebx.isdelta = reader.GetString(11) == "True";
-                ebx.tocfilepath = reader.GetString(12);
-                ebx.incas = reader.GetString(13) == "True";
-                switch (reader.GetString(14))
+                con.Open();
+                using (SQLiteDataReader reader = getAll("ebxlut", con))
                 {
-                    default:
-                        ebx.isbasegamefile = true;
-                        break;
-                    case "u":
-                        ebx.isDLC = true;
-                        break;
-                    case "p":
-                        ebx.isPatch = true;
-                        break;
-                }
-                result.Add(ebx);
-                if (count++ % 10000 == 0)
-                {
-                    Application.DoEvents();
-                    label.Text = "Refreshing... " + Helpers.GetWaiter(animcount++);
+                    int count = 0;
+                    int animcount = 0;
+                    while (reader.Read())
+                    {
+                        EBXInformation ebx = new EBXInformation();
+                        ebx.ebxname = reader.GetString(1);
+                        ebx.sha1 = reader.GetString(2);
+                        ebx.basesha1 = reader.GetString(3);
+                        ebx.deltasha1 = reader.GetString(4);
+                        ebx.casPatchType = reader.GetInt32(5);
+                        ebx.guid = reader.GetString(6);
+                        ebx.bundlepath = reader.GetString(7);
+                        ebx.offset = reader.GetInt32(8);
+                        ebx.size = reader.GetInt32(9);
+                        ebx.isbase = reader.GetString(10) == "True";
+                        ebx.isdelta = reader.GetString(11) == "True";
+                        ebx.tocfilepath = reader.GetString(12);
+                        ebx.incas = reader.GetString(13) == "True";
+                        switch (reader.GetString(14))
+                        {
+                            default:
+                                ebx.isbasegamefile = true;
+                                break;
+                            case "u":
+                                ebx.isDLC = true;
+                                break;
+                            case "p":
+                                ebx.isPatch = true;
+                                break;
+                        }
+                        result.Add(ebx);
+                        if (count++ % 10000 == 0)
+                        {
+                            Application.DoEvents();
+                            label.Text = "Refreshing... " + Helpers.GetWaiter(animcount++);
+                        }
+                    }
                 }
             }
-            con.Close();
             GC.Collect();
             return result.ToArray();
         }
@@ -733,44 +741,48 @@ namespace DAILibWV
         public static EBXInformation[] GetEBXInformationBySHA1(string sha1)
         {
             List<EBXInformation> result = new List<EBXInformation>();
-            sha1 = sha1.ToUpper();
-            SQLiteConnection con = GetConnection();
-            con.Open();
-            SQLiteDataReader reader = getAllWhere("ebxlut", "sha1 = '" + sha1 + "' or basesha1 = '" + sha1 + "' or deltasha1 = '" + sha1 + "' ", con);
-            int count = 0;
-            while (reader.Read())
+            using (SQLiteConnection con = GetConnection())
             {
-                EBXInformation ebx = new EBXInformation();
-                ebx.ebxname = reader.GetString(1);
-                ebx.sha1 = reader.GetString(2);
-                ebx.basesha1 = reader.GetString(3);
-                ebx.deltasha1 = reader.GetString(4);
-                ebx.casPatchType = reader.GetInt32(5);
-                ebx.guid = reader.GetString(6);
-                ebx.bundlepath = reader.GetString(7);
-                ebx.offset = reader.GetInt32(8);
-                ebx.size = reader.GetInt32(9);
-                ebx.isbase = reader.GetString(10) == "True";
-                ebx.isdelta = reader.GetString(11) == "True";
-                ebx.tocfilepath = reader.GetString(12);
-                ebx.incas = reader.GetString(13) == "True";
-                switch (reader.GetString(14))
+                con.Open();
+                using (SQLiteDataReader reader =
+                    getAllWhere("ebxlut",
+                        "sha1 = '" + sha1 + "' or basesha1 = '" + sha1 + "' or deltasha1 = '" + sha1 + "' ", con))
                 {
-                    default:
-                        ebx.isbasegamefile = true;
-                        break;
-                    case "u":
-                        ebx.isDLC = true;
-                        break;
-                    case "p":
-                        ebx.isPatch = true;
-                        break;
+                    int count = 0;
+                    while (reader.Read())
+                    {
+                        EBXInformation ebx = new EBXInformation();
+                        ebx.ebxname = reader.GetString(1);
+                        ebx.sha1 = reader.GetString(2);
+                        ebx.basesha1 = reader.GetString(3);
+                        ebx.deltasha1 = reader.GetString(4);
+                        ebx.casPatchType = reader.GetInt32(5);
+                        ebx.guid = reader.GetString(6);
+                        ebx.bundlepath = reader.GetString(7);
+                        ebx.offset = reader.GetInt32(8);
+                        ebx.size = reader.GetInt32(9);
+                        ebx.isbase = reader.GetString(10) == "True";
+                        ebx.isdelta = reader.GetString(11) == "True";
+                        ebx.tocfilepath = reader.GetString(12);
+                        ebx.incas = reader.GetString(13) == "True";
+                        switch (reader.GetString(14))
+                        {
+                            default:
+                                ebx.isbasegamefile = true;
+                                break;
+                            case "u":
+                                ebx.isDLC = true;
+                                break;
+                            case "p":
+                                ebx.isPatch = true;
+                                break;
+                        }
+                        result.Add(ebx);
+                        if (count++ % 1000 == 0)
+                            Application.DoEvents();
+                    }
                 }
-                result.Add(ebx);
-                if (count++ % 1000 == 0)
-                    Application.DoEvents();
             }
-            con.Close();
             return result.ToArray();
         }
 
@@ -778,43 +790,47 @@ namespace DAILibWV
         {
             List<EBXInformation> result = new List<EBXInformation>();
             path = path.ToLower();
-            SQLiteConnection con = GetConnection();
-            con.Open();
-            SQLiteDataReader reader = getAllWhere("ebxlut", "lower(path) = '" + path + "'", con);
-            int count = 0;
-            while (reader.Read())
+            using (SQLiteConnection con = GetConnection())
             {
-                EBXInformation ebx = new EBXInformation();
-                ebx.ebxname = reader.GetString(1);
-                ebx.sha1 = reader.GetString(2);
-                ebx.basesha1 = reader.GetString(3);
-                ebx.deltasha1 = reader.GetString(4);
-                ebx.casPatchType = reader.GetInt32(5);
-                ebx.guid = reader.GetString(6);
-                ebx.bundlepath = reader.GetString(7);
-                ebx.offset = reader.GetInt32(8);
-                ebx.size = reader.GetInt32(9);
-                ebx.isbase = reader.GetString(10) == "True";
-                ebx.isdelta = reader.GetString(11) == "True";
-                ebx.tocfilepath = reader.GetString(12);
-                ebx.incas = reader.GetString(13) == "True";
-                switch (reader.GetString(14))
+                con.Open();
+                using (SQLiteDataReader reader = getAllWhere("ebxlut", "lower(path) = '" + path + "'", con))
                 {
-                    default:
-                        ebx.isbasegamefile = true;
-                        break;
-                    case "u":
-                        ebx.isDLC = true;
-                        break;
-                    case "p":
-                        ebx.isPatch = true;
-                        break;
+
+                    int count = 0;
+                    while (reader.Read())
+                    {
+                        EBXInformation ebx = new EBXInformation();
+                        ebx.ebxname = reader.GetString(1);
+                        ebx.sha1 = reader.GetString(2);
+                        ebx.basesha1 = reader.GetString(3);
+                        ebx.deltasha1 = reader.GetString(4);
+                        ebx.casPatchType = reader.GetInt32(5);
+                        ebx.guid = reader.GetString(6);
+                        ebx.bundlepath = reader.GetString(7);
+                        ebx.offset = reader.GetInt32(8);
+                        ebx.size = reader.GetInt32(9);
+                        ebx.isbase = reader.GetString(10) == "True";
+                        ebx.isdelta = reader.GetString(11) == "True";
+                        ebx.tocfilepath = reader.GetString(12);
+                        ebx.incas = reader.GetString(13) == "True";
+                        switch (reader.GetString(14))
+                        {
+                            default:
+                                ebx.isbasegamefile = true;
+                                break;
+                            case "u":
+                                ebx.isDLC = true;
+                                break;
+                            case "p":
+                                ebx.isPatch = true;
+                                break;
+                        }
+                        result.Add(ebx);
+                        if (count++ % 1000 == 0)
+                            Application.DoEvents();
+                    }
                 }
-                result.Add(ebx);
-                if (count++ % 1000 == 0)
-                    Application.DoEvents();
             }
-            con.Close();
             return result.ToArray();
         }
 
@@ -822,114 +838,132 @@ namespace DAILibWV
         {
             List<RESInformation> result = new List<RESInformation>();
             sha1 = sha1.ToUpper();
-            SQLiteConnection con = GetConnection();
-            con.Open();
-            SQLiteDataReader reader = getAllJoined3Where("res", "bundles", "tocfiles", "bundle", "id", "tocfile", "id", "res.sha1='" + sha1 + "'", con);
-            int count = 0;
-            while (reader.Read())
+            using (SQLiteConnection con = GetConnection())
             {
-                RESInformation res = new RESInformation();
-                res.resname = reader.GetString(0);
-                res.sha1 = reader.GetString(1);
-                res.rtype = reader.GetString(2);
-                res.bundlepath = reader.GetString(6);
-                res.offset = reader.GetInt32(7);
-                res.size = reader.GetInt32(8);
-                res.isbase = reader.GetString(9) == "True";
-                res.isdelta = reader.GetString(10) == "True";
-                res.tocfilepath = reader.GetString(12);
-                res.incas = reader.GetString(14) == "True";
-                switch (reader.GetString(15))
+                con.Open();
+                using (SQLiteDataReader reader = getAllJoined3Where("res", "bundles", "tocfiles", "bundle", "id",
+                    "tocfile", "id", "res.sha1='" + sha1 + "'", con))
                 {
-                    default:
-                        res.isbasegamefile = true;
-                        break;
-                    case "u":
-                        res.isDLC = true;
-                        break;
-                    case "p":
-                        res.isPatch = true;
-                        break;
+                    int count = 0;
+                    while (reader.Read())
+                    {
+                        RESInformation res = new RESInformation();
+                        res.resname = reader.GetString(0);
+                        res.sha1 = reader.GetString(1);
+                        res.rtype = reader.GetString(2);
+                        res.bundlepath = reader.GetString(6);
+                        res.offset = reader.GetInt32(7);
+                        res.size = reader.GetInt32(8);
+                        res.isbase = reader.GetString(9) == "True";
+                        res.isdelta = reader.GetString(10) == "True";
+                        res.tocfilepath = reader.GetString(12);
+                        res.incas = reader.GetString(14) == "True";
+                        switch (reader.GetString(15))
+                        {
+                            default:
+                                res.isbasegamefile = true;
+                                break;
+                            case "u":
+                                res.isDLC = true;
+                                break;
+                            case "p":
+                                res.isPatch = true;
+                                break;
+                        }
+                        result.Add(res);
+                        if (count++ % 1000 == 0)
+                            Application.DoEvents();
+                    }
                 }
-                result.Add(res);
-                if (count++ % 1000 == 0)
-                    Application.DoEvents();
             }
-            con.Close();
             return result.ToArray();
         }
 
         public static string[] GetUsedRESTypes()
         {
             List<string> result = new List<string>();
-            SQLiteConnection con = GetConnection();
-            con.Open();
-            SQLiteCommand command = new SQLiteCommand("SELECT DISTINCT rtype FROM res", con);
-            SQLiteDataReader reader = command.ExecuteReader();
-            while (reader.Read())
-                result.Add(reader.GetString(0));
-            con.Close();
+            using (SQLiteConnection con = GetConnection())
+            {
+                con.Open();
+                using (SQLiteCommand command = new SQLiteCommand("SELECT DISTINCT rtype FROM res", con))
+                using (SQLiteDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                        result.Add(reader.GetString(0));
+                }
+            }
+            ;
             return result.ToArray();
         }
 
         public static RESInformation[] GetRESInformationsByType(string type)
         {
             List<RESInformation> result = new List<RESInformation>();
-            SQLiteConnection con = GetConnection();
-            con.Open();
-            SQLiteDataReader reader = getAllJoined3Where("res", "bundles", "tocfiles", "bundle", "id", "tocfile", "id", "res.rtype='" + type + "'", con);
-            int count = 0;
-            while (reader.Read())
+            using (SQLiteConnection con = GetConnection())
             {
-                RESInformation res = new RESInformation();
-                res.resname = reader.GetString(0);
-                res.sha1 = reader.GetString(1);
-                res.rtype = reader.GetString(2);
-                res.bundlepath = reader.GetString(6);
-                res.offset = reader.GetInt32(7);
-                res.size = reader.GetInt32(8);
-                res.isbase = reader.GetString(9) == "True";
-                res.isdelta = reader.GetString(10) == "True";
-                res.tocfilepath = reader.GetString(12);
-                res.incas = reader.GetString(14) == "True";
-                   switch (reader.GetString(15))
+                con.Open();
+                using (SQLiteDataReader reader = getAllJoined3Where("res", "bundles", "tocfiles", "bundle", "id",
+                    "tocfile", "id", "res.rtype='" + type + "'", con))
                 {
-                    default:
-                        res.isbasegamefile = true;
-                        break;
-                    case "u":
-                        res.isDLC = true;
-                        break;
-                    case "p":
-                        res.isPatch = true;
-                        break;
+                    int count = 0;
+                    while (reader.Read())
+                    {
+                        RESInformation res = new RESInformation();
+                        res.resname = reader.GetString(0);
+                        res.sha1 = reader.GetString(1);
+                        res.rtype = reader.GetString(2);
+                        res.bundlepath = reader.GetString(6);
+                        res.offset = reader.GetInt32(7);
+                        res.size = reader.GetInt32(8);
+                        res.isbase = reader.GetString(9) == "True";
+                        res.isdelta = reader.GetString(10) == "True";
+                        res.tocfilepath = reader.GetString(12);
+                        res.incas = reader.GetString(14) == "True";
+                        switch (reader.GetString(15))
+                        {
+                            default:
+                                res.isbasegamefile = true;
+                                break;
+                            case "u":
+                                res.isDLC = true;
+                                break;
+                            case "p":
+                                res.isPatch = true;
+                                break;
+                        }
+                        result.Add(res);
+                        if (count++ % 1000 == 0)
+                            Application.DoEvents();
+                    }
                 }
-                result.Add(res);
-                if (count++ % 1000 == 0)
-                    Application.DoEvents();
             }
-            con.Close();
+            
             return result.ToArray();
         }
 
         public static TextureInformation[] GetTextureInformations()
         {
             List<TextureInformation> result = new List<TextureInformation>();
-            SQLiteConnection con = GetConnection();
-            con.Open();
-            SQLiteDataReader reader = getAllWhere("res", "rtype = 'A654495C'", con);
-            int count = 0;
-            while (reader.Read())
+            using (SQLiteConnection con = GetConnection())
             {
-                if (count++ % 1000 == 0)
-                    Application.DoEvents();
-                TextureInformation ti = new TextureInformation();
-                ti.name = reader.GetString(0);
-                ti.sha1 = Helpers.HexStringToByteArray(reader.GetString(1));
-                ti.bundleIndex = reader.GetInt32(3);
-                result.Add(ti);
+                con.Open();
+                using (SQLiteDataReader reader = getAllWhere("res", "rtype = 'A654495C'", con))
+                {
+                    int count = 0;
+                    while (reader.Read())
+                    {
+                        if (count++ % 1000 == 0)
+                            Application.DoEvents();
+                        TextureInformation ti = new TextureInformation();
+                        ti.name = reader.GetString(0);
+                        ti.sha1 = Helpers.HexStringToByteArray(reader.GetString(1));
+                        ti.bundleIndex = reader.GetInt32(3);
+                        result.Add(ti);
+                    }
+                }
+                
             }
-            con.Close();
+            
             return result.ToArray();
         }
 
@@ -937,39 +971,49 @@ namespace DAILibWV
         public static TextureInformation[] GetTextureInformationsById(string id)
         {
             List<TextureInformation> result = new List<TextureInformation>();
-            SQLiteConnection con = GetConnection();
-            con.Open();
-            SQLiteDataReader reader = getAllWhere("res", "rtype = 'A654495C' and lower(name) = '" + id.ToLower() + "'", con);
-            int count = 0;
-            while (reader.Read())
+            using (SQLiteConnection con = GetConnection())
             {
-                if (count++ % 1000 == 0)
-                    Application.DoEvents();
-                TextureInformation ti = new TextureInformation();
-                ti.name = reader.GetString(0);
-                ti.sha1 = Helpers.HexStringToByteArray(reader.GetString(1));
-                ti.bundleIndex = reader.GetInt32(3);
-                result.Add(ti);
+                con.Open();
+                using (SQLiteDataReader reader =
+                    getAllWhere("res", "rtype = 'A654495C' and lower(name) = '" + id.ToLower() + "'", con))
+                {
+                    int count = 0;
+                    while (reader.Read())
+                    {
+                        if (count++ % 1000 == 0)
+                            Application.DoEvents();
+                        TextureInformation ti = new TextureInformation();
+                        ti.name = reader.GetString(0);
+                        ti.sha1 = Helpers.HexStringToByteArray(reader.GetString(1));
+                        ti.bundleIndex = reader.GetInt32(3);
+                        result.Add(ti);
+                    }
+                }
+                
             }
-            con.Close();
+            
             return result.ToArray();
         }
 
         public static TOCInformation GetTocInformationByIndex(int index)
         {
             TOCInformation res = new TOCInformation();
-            SQLiteConnection con = GetConnection();
-            con.Open();
-            SQLiteDataReader reader = getAllWhere("tocfiles", "id = " + index, con);
-            if (reader.Read())
+            using (SQLiteConnection con = GetConnection())
             {
-                res.index = index;
-                res.path = reader.GetString(1);
-                res.md5 = reader.GetString(2);
-                res.incas = reader.GetString(3) == "True";
-                res.type = reader.GetString(4);
+                con.Open();
+                using (SQLiteDataReader reader = getAllWhere("tocfiles", "id = " + index, con))
+                {
+                    if (reader.Read())
+                    {
+                        res.index = index;
+                        res.path = reader.GetString(1);
+                        res.md5 = reader.GetString(2);
+                        res.incas = reader.GetString(3) == "True";
+                        res.type = reader.GetString(4);
+                    }
+                }
             }
-            con.Close();
+
             return res;
         }
 
@@ -978,16 +1022,21 @@ namespace DAILibWV
             ChunkInformation res = new ChunkInformation();
             res.id = id;
             res.bundleIndex = -1;
-            SQLiteConnection con = GetConnection();
-            con.Open();
-            SQLiteDataReader reader = getAllWhere("chunks", "id = '" + Helpers.ByteArrayToHexString(id) + "'", con);
-            if (reader.Read())
+            using (SQLiteConnection con = GetConnection())
             {
-                res.id = Helpers.HexStringToByteArray(reader.GetString(0));
-                res.sha1 = Helpers.HexStringToByteArray(reader.GetString(1));
-                res.bundleIndex = reader.GetInt32(2);
+                con.Open();
+                using (SQLiteDataReader reader =
+                    getAllWhere("chunks", "id = '" + Helpers.ByteArrayToHexString(id) + "'", con))
+                {
+                    if (reader.Read())
+                    {
+                        res.id = Helpers.HexStringToByteArray(reader.GetString(0));
+                        res.sha1 = Helpers.HexStringToByteArray(reader.GetString(1));
+                        res.bundleIndex = reader.GetInt32(2);
+                    }
+                }
             }
-            con.Close();
+
             return res;
         }
 
@@ -995,18 +1044,22 @@ namespace DAILibWV
         {
             sha1 = sha1.ToUpper();
             List<ChunkInformation> res = new List<ChunkInformation>();
-            SQLiteConnection con = GetConnection();
-            con.Open();
-            SQLiteDataReader reader = getAllWhere("chunks", "sha1 = '" + sha1 + "'", con);
-            if (reader.Read())
+            using (SQLiteConnection con = GetConnection())
             {
-                ChunkInformation ci = new ChunkInformation();
-                ci.id = Helpers.HexStringToByteArray(reader.GetString(0));
-                ci.sha1 = Helpers.HexStringToByteArray(reader.GetString(1));
-                ci.bundleIndex = reader.GetInt32(2);
-                res.Add(ci);
+                con.Open();
+                using (SQLiteDataReader reader = getAllWhere("chunks", "sha1 = '" + sha1 + "'", con))
+                {
+                    if (reader.Read())
+                    {
+                        ChunkInformation ci = new ChunkInformation();
+                        ci.id = Helpers.HexStringToByteArray(reader.GetString(0));
+                        ci.sha1 = Helpers.HexStringToByteArray(reader.GetString(1));
+                        ci.bundleIndex = reader.GetInt32(2);
+                        res.Add(ci);
+                    }
+                }
             }
-            con.Close();
+
             return res.ToArray();
         }
 
@@ -1075,85 +1128,86 @@ namespace DAILibWV
         private static void ScanTOCsForBundles()
         {
             Debug.LogLn("Saving bundles into db...");
-            SQLiteConnection con = GetConnection();
-            con.Open();
-
-            List<string> files = new List<string>();
-            List<int> fileids = new List<int>();
-            using (SQLiteDataReader reader = getAll("tocfiles", con))
+            using (SQLiteConnection con = GetConnection())
             {
-                while (reader.Read())
+                con.Open();
+                List<string> files = new List<string>();
+                List<int> fileids = new List<int>();
+                using (SQLiteDataReader reader = getAll("tocfiles", con))
                 {
-                    fileids.Add(reader.GetInt32(0));
-                    files.Add(reader.GetString(1));
+                    while (reader.Read())
+                    {
+                        fileids.Add(reader.GetInt32(0));
+                        files.Add(reader.GetString(1));
+                    }
+                }
+
+                int counter = 0;
+                Stopwatch sp = new Stopwatch();
+                sp.Start();
+                foreach (string file in files)
+                {
+                    counter++;
+                    Debug.LogLn("Opening " + file + " ...");
+                    TOCFile tocfile = new TOCFile(file);
+                    int counter2 = 0;
+
+                    foreach (TOCFile.TOCBundleInfoStruct info in tocfile.bundles)
+                    {
+                        counter2++;
+                        Bundle b;
+                        string pathsb = Helpers.GetFileNameWithOutExtension(file) + ".sb";
+                        FileStream fs = new FileStream(pathsb, FileMode.Open, FileAccess.Read);
+                        fs.Seek(0, SeekOrigin.End);
+                        long filesize = fs.Position;
+                        if (info.offset > filesize)
+                        {
+                            fs.Close();
+                            continue;
+                        }
+                        fs.Seek(info.offset, 0);
+                        byte[] buff = new byte[info.size];
+                        fs.Read(buff, 0, info.size);
+                        if (tocfile.iscas)
+                        {
+                            if (buff[0] != 0x82)
+                                continue;
+                            List<BJSON.Entry> list = new List<BJSON.Entry>();
+                            BJSON.ReadEntries(new MemoryStream(buff), list);
+                            b = Bundle.Create(list[0]);
+                        }
+                        else
+                        {
+                            uint magic = BitConverter.ToUInt32(buff, 4);
+                            if (magic != 0xd58e799d)
+                                continue;
+                            b = Bundle.Create(buff, true);
+                        }
+                        string log = " adding bundle: " + (counter2) + "/" + tocfile.bundles.Count + " ";
+                        if (info.isbase) log += "ISBASEG ";
+                        if (info.isdelta) log += "ISDELTA ";
+                        log += "ID: " + info.id;
+                        Debug.Log(log, true);
+                        AddBundle(fileids[counter - 1], tocfile.iscas, b, info, con);
+                    }
+                    counter2 = 0;
+                    using (var transaction = con.BeginTransaction())
+                    {
+                        foreach (TOCFile.TOCChunkInfoStruct info in tocfile.chunks)
+                        {
+                            AddGlobalChunk(fileids[counter - 1], info.id, info.sha1, info.offset, info.size, con);
+                            Debug.LogLn(" adding chunk: " + (counter2) + "/" + tocfile.chunks.Count + " " + Helpers.ByteArrayToHexString(info.id), counter2 % 1000 == 0);
+                            counter2 += 1;
+                        }
+                        transaction.Commit();
+                    }
+
+                    long elapsed = sp.ElapsedMilliseconds;
+                    long ETA = ((elapsed / counter) * files.Count);
+                    TimeSpan ETAt = TimeSpan.FromMilliseconds(ETA);
+                    Debug.LogLn((counter) + "/" + files.Count + " files done." + " - Elapsed: " + sp.Elapsed.ToString() + " ETA: " + ETAt.ToString());
                 }
             }
-
-            int counter = 0;
-            Stopwatch sp = new Stopwatch();
-            sp.Start();
-            foreach (string file in files)
-            {
-                counter++;
-                Debug.LogLn("Opening " + file + " ...");
-                TOCFile tocfile = new TOCFile(file);
-                int counter2 = 0;
-                
-                foreach (TOCFile.TOCBundleInfoStruct info in tocfile.bundles)
-                {
-                    counter2++;
-                    Bundle b;
-                    string pathsb = Helpers.GetFileNameWithOutExtension(file) + ".sb";
-                    FileStream fs = new FileStream(pathsb, FileMode.Open, FileAccess.Read);
-                    fs.Seek(0, SeekOrigin.End);
-                    long filesize = fs.Position;
-                    if (info.offset > filesize)
-                    {
-                        fs.Close();
-                        continue;
-                    }
-                    fs.Seek(info.offset, 0);
-                    byte[] buff = new byte[info.size];
-                    fs.Read(buff, 0, info.size);
-                    if (tocfile.iscas)
-                    {
-                        if (buff[0] != 0x82)
-                            continue;
-                        List<BJSON.Entry> list = new List<BJSON.Entry>();
-                        BJSON.ReadEntries(new MemoryStream(buff), list);
-                        b = Bundle.Create(list[0]);
-                    }
-                    else
-                    {
-                        uint magic = BitConverter.ToUInt32(buff, 4);
-                        if (magic != 0xd58e799d)
-                            continue;
-                        b = Bundle.Create(buff, true);
-                    }
-                    string log = " adding bundle: " + (counter2) + "/" + tocfile.bundles.Count + " ";
-                    if (info.isbase) log += "ISBASEG ";
-                    if (info.isdelta) log += "ISDELTA ";
-                    log += "ID: " + info.id;
-                    Debug.Log(log, true);
-                    AddBundle(fileids[counter - 1], tocfile.iscas, b, info, con);
-                }
-                counter2 = 0;
-                using (var transaction = con.BeginTransaction())
-                {
-                    foreach (TOCFile.TOCChunkInfoStruct info in tocfile.chunks)
-                    {
-                        AddGlobalChunk(fileids[counter - 1], info.id, info.sha1, info.offset, info.size, con);
-                        Debug.LogLn(" adding chunk: " + (counter2) + "/" + tocfile.chunks.Count + " " + Helpers.ByteArrayToHexString(info.id), counter2 % 1000 == 0);
-                    }
-                    transaction.Commit();
-                }
-                
-                long elapsed = sp.ElapsedMilliseconds;
-                long ETA = ((elapsed / counter) * files.Count);
-                TimeSpan ETAt = TimeSpan.FromMilliseconds(ETA);
-                Debug.LogLn((counter) + "/" + files.Count + " files done." + " - Elapsed: " + sp.Elapsed.ToString() + " ETA: " + ETAt.ToString());
-            }
-            con.Close();
         }
 
         #endregion
