@@ -1194,9 +1194,13 @@ namespace DAILibWV
                         foreach (TOCFile.TOCChunkInfoStruct info in tocfile.chunks)
                         {
                             AddGlobalChunk(fileids[counter - 1], info.id, info.sha1, info.offset, info.size, con);
-                            Debug.LogLn(" adding chunk: " + (counter2) + "/" + tocfile.chunks.Count + " " + Helpers.ByteArrayToHexString(info.id), counter2 % 1000 == 0);
                             counter2 += 1;
+
+                            if (counter2 % 1000 == 0) 
+                                Debug.LogLn(" Added: " + (counter2) + "/" + tocfile.chunks.Count + " chunks.");
                         }
+
+                        Debug.LogLn(" Loaded " + counter2 + " chunks.");
                         transaction.Commit();
                     }
 
