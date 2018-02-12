@@ -1,1 +1,0 @@
-luadec temp.luac> temp.lua
