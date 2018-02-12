@@ -342,7 +342,7 @@ namespace DAILibWV
         {
             Debug.LogLn(" EBX:" + b.ebx.Count + " RES:" + b.res.Count + " CHUNK:" + b.chunk.Count, true);
             int bundleid = (int)GetLastRowId(con);
-            TOCInformation toci = GetTocInformationByIndex(tocid);
+            TOCInformation toci = GetTocInformationByIndex(tocid, con);
 
             SQLCommand("INSERT INTO bundles (tocfile, frostid, offset, size, base, delta) VALUES (" + tocid + ",'" + info.id + "'," + info.offset + ", " + info.size + ", '" + info.isbase + "', '" + info.isdelta + "' )", con);
             if (b.ebx != null)
@@ -985,23 +985,27 @@ namespace DAILibWV
 
         public static TOCInformation GetTocInformationByIndex(int index)
         {
-            TOCInformation res = new TOCInformation();
             using (SQLiteConnection con = GetConnection())
             {
                 con.Open();
-                using (SQLiteDataReader reader = getAllWhere("tocfiles", "id = " + index, con))
+                return GetTocInformationByIndex(index, con);
+            }
+        }
+
+        public static TOCInformation GetTocInformationByIndex(int index, SQLiteConnection con)
+        {
+            TOCInformation res = new TOCInformation();
+            using (SQLiteDataReader reader = getAllWhere("tocfiles", "id = " + index, con))
+            {
+                if (reader.Read())
                 {
-                    if (reader.Read())
-                    {
-                        res.index = index;
-                        res.path = reader.GetString(1);
-                        res.md5 = reader.GetString(2);
-                        res.incas = reader.GetString(3) == "True";
-                        res.type = reader.GetString(4);
-                    }
+                    res.index = index;
+                    res.path = reader.GetString(1);
+                    res.md5 = reader.GetString(2);
+                    res.incas = reader.GetString(3) == "True";
+                    res.type = reader.GetString(4);
                 }
             }
-
             return res;
         }
 
