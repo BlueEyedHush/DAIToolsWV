@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Diagnostics;
@@ -98,8 +99,11 @@ namespace DAILibWV
 
         public static void SQLCommand(string sql, SQLiteConnection con)
         {
-            SQLiteCommand command = new SQLiteCommand(sql, con);
-            command.ExecuteNonQuery();
+            using (var cmd = con.CreateCommand())
+            {
+                cmd.CommandText = sql;
+                cmd.ExecuteNonQuery();
+            }
         }
 
         public static SQLiteConnection GetConnection()
@@ -114,75 +118,68 @@ namespace DAILibWV
 
         public static long SQLGetRowCount(string table, SQLiteConnection con)
         {
-            SQLiteCommand command = new SQLiteCommand("SELECT COUNT(*) FROM " + table, con);
-            SQLiteDataReader reader = command.ExecuteReader();
-            reader.Read();
-            return (long)reader.GetValue(0);
-        }
-
-        public static SQLiteDataReader getReader(string sql, SQLiteConnection con)
-        {
-            SQLiteCommand command = new SQLiteCommand(sql, con);
-            return command.ExecuteReader();
+            using (var cmd = con.CreateCommand())
+            {
+                cmd.CommandText = "SELECT COUNT(*) FROM " + table;
+                using (var reader = cmd.ExecuteReader())
+                {
+                    reader.Read();
+                    return (long)reader.GetValue(0);
+                }
+            }
         }
 
         public static SQLiteDataReader getAll(string table, SQLiteConnection con)
         {
-            SQLiteCommand command = new SQLiteCommand("SELECT * FROM " + table, con);
-            return command.ExecuteReader();
+            using (var cmd = new SQLiteCommand("SELECT * FROM " + table, con))
+            {
+                return cmd.ExecuteReader();
+            }
         }
 
         public static SQLiteDataReader getAllJoined(string table1, string table2, string key1, string key2, SQLiteConnection con, string sort = null)
         {
-            string sql = "SELECT * FROM " + table1 + " JOIN " + table2 + " ON (" + table1 + "." + key1 + " = " + table2 + "." + key2 + ")";
-            if (sort != null)
-                sql += " ORDER BY " + sort;
-            SQLiteCommand command = new SQLiteCommand(sql, con);
-            return command.ExecuteReader();
-        }
-
-        public static SQLiteDataReader getAllJoined3(string table1, string table2, string table3, string key12, string key21, string key23, string key32, SQLiteConnection con, string sort = null)
-        {
-            string sql = "SELECT * FROM " + table1 + " ";
-            sql += "JOIN " + table2 + " ON (" + table1 + "." + key12 + " = " + table2 + "." + key21 + ") ";
-            sql += "JOIN " + table3 + " ON (" + table2 + "." + key23 + " = " + table3 + "." + key32 + ") ";
-            if (sort != null)
-                sql += " ORDER BY " + sort;
-            SQLiteCommand command = new SQLiteCommand(sql, con);
-            return command.ExecuteReader();
-        }
-
-        public static SQLiteDataReader getAllSorted(string table, string order, SQLiteConnection con)
-        {
-            SQLiteCommand command = new SQLiteCommand("SELECT * FROM " + table + " ORDER BY " + order, con);
-            return command.ExecuteReader();
+            using (var cmd = con.CreateCommand())
+            {
+                cmd.CommandText = "SELECT * FROM " + table1 + " JOIN " + table2 + " ON (" + table1 + "." + key1 + " = " + table2 + "." + key2 + ")";
+                if (sort != null)
+                    cmd.CommandText += " ORDER BY " + sort;
+                return cmd.ExecuteReader();
+            }
         }
 
         public static SQLiteDataReader getAllWhere(string table, string where, SQLiteConnection con)
         {
-            SQLiteCommand command = new SQLiteCommand("SELECT * FROM " + table + " WHERE " + where, con);
-            return command.ExecuteReader();
+            using (var cmd = con.CreateCommand())
+            {
+                cmd.CommandText = "SELECT * FROM " + table + " WHERE " + where;
+                return cmd.ExecuteReader();
+            }
         }
 
         public static SQLiteDataReader getAllJoinedWhere(string table1, string table2, string key1, string key2, string where, SQLiteConnection con, string sort = null)
         {
-            string sql = "SELECT * FROM " + table1 + " JOIN " + table2 + " ON (" + table1 + "." + key1 + " = " + table2 + "." + key2 + ") WHERE " + where + " ";
-            if (sort != null)
-                sql += " ORDER BY " + sort;
-            SQLiteCommand command = new SQLiteCommand(sql, con);
-            return command.ExecuteReader();
+            using (var cmd = con.CreateCommand())
+            {
+                cmd.CommandText = "SELECT * FROM " + table1 + " JOIN " + table2 + " ON (" + table1 + "." + key1 + " = " + table2 + "." + key2 + ") WHERE " + where + " ";
+                if (sort != null)
+                    cmd.CommandText += " ORDER BY " + sort;
+                return cmd.ExecuteReader();
+            }
         }
 
         public static SQLiteDataReader getAllJoined3Where(string table1, string table2, string table3, string key12, string key21, string key23, string key32, string where, SQLiteConnection con, string sort = null)
         {
-            string sql = "SELECT * FROM " + table1 + " ";
-            sql += "JOIN " + table2 + " ON (" + table1 + "." + key12 + " = " + table2 + "." + key21 + ") ";
-            sql += "JOIN " + table3 + " ON (" + table2 + "." + key23 + " = " + table3 + "." + key32 + ") ";
-            sql += "WHERE " + where;
-            if (sort != null)
-                sql += " ORDER BY " + sort;
-            SQLiteCommand command = new SQLiteCommand(sql, con);
-            return command.ExecuteReader();
+            using (var cmd = con.CreateCommand())
+            {
+                cmd.CommandText = "SELECT * FROM " + table1 + " " +
+                    "JOIN " + table2 + " ON (" + table1 + "." + key12 + " = " + table2 + "." + key21 + ") " +
+                    "JOIN " + table3 + " ON (" + table2 + "." + key23 + " = " + table3 + "." + key32 + ") " +
+                    "WHERE " + where;
+                if (sort != null)
+                    cmd.CommandText += " ORDER BY " + sort;
+                return cmd.ExecuteReader();
+            }
         }
 
         #endregion
@@ -204,38 +201,45 @@ namespace DAILibWV
             if (!File.Exists(dbpath))
                 File.Delete(dbpath);
             SQLiteConnection.CreateFile(dbpath);
-            SQLiteConnection con = GetConnection();
-            con.Open();
-            SQLCommand("CREATE TABLE settings (key TEXT, value TEXT)", con);
-            SQLCommand("INSERT INTO settings (key, value) values ('isNew', '1')", con);
-            ClearGlobalChunkdb(con);
-            ClearSBFilesdb(con);
-            ClearTOCFilesdb(con);
-            ClearBundlesdb(con);
-            ClearEBXLookUpTabledb(con);
-            con.Close();
+
+            using (var con = GetConnection())
+            {
+                con.Open();
+                SQLCommand("CREATE TABLE settings (key TEXT, value TEXT)", con);
+                SQLCommand("INSERT INTO settings (key, value) values ('isNew', '1')", con);
+
+                ClearGlobalChunkdb(con);
+                ClearSBFilesdb(con);
+                ClearTOCFilesdb(con);
+                ClearBundlesdb(con);
+                ClearEBXLookUpTabledb(con);
+            }
         }
 
         public static void LoadSettings()
         {
-            SQLiteConnection con = GetConnection();
-            con.Open();
-            SQLiteDataReader reader = getAll("settings", con);
-            GlobalStuff.settings = new Dictionary<string, string>();
-            while (reader.Read())
-                GlobalStuff.settings.Add(reader.GetString(0), reader.GetString(1));
-            con.Close();
+            using (var con = GetConnection())
+            {
+                con.Open();
+                using (var reader = getAll("settings", con))
+                {
+                    GlobalStuff.settings = new Dictionary<string, string>();
+                    while (reader.Read())
+                        GlobalStuff.settings.Add(reader.GetString(0), reader.GetString(1));
+                }
+            }
         }
 
         public static void SaveSettings()
         {
-            SQLiteConnection con = GetConnection();
-            con.Open();
-            SQLCommand("DROP TABLE settings", con);
-            SQLCommand("CREATE TABLE settings (key TEXT, value TEXT)", con);
-            foreach (KeyValuePair<string, string> setting in GlobalStuff.settings)
-                SQLCommand("INSERT INTO settings (key, value) values ('" + setting.Key + "', '" + setting.Value + "')", con);
-            con.Close();
+            using (var con = GetConnection())
+            {
+                con.Open();
+                SQLCommand("DROP TABLE settings", con);
+                SQLCommand("CREATE TABLE settings (key TEXT, value TEXT)", con);
+                foreach (KeyValuePair<string, string> setting in GlobalStuff.settings)
+                    SQLCommand("INSERT INTO settings (key, value) values ('" + setting.Key + "', '" + setting.Value + "')", con);
+            }
             LoadSettings();
         }
 
@@ -297,6 +301,7 @@ namespace DAILibWV
             if (sha1 != null)
                 foreach (byte b in sha1)
                     sb2.Append(b.ToString("X2"));
+
             SQLCommand("INSERT INTO globalchunks (tocfile, id, sha1, offset, size) VALUES (" + tocid + ",'" + sb.ToString() + "','" + sb2.ToString() + "', " + offset + "," + size + ")", con);
         }
 
@@ -342,7 +347,6 @@ namespace DAILibWV
             using (var transaction = con.BeginTransaction())
             {
                 SQLCommand("INSERT INTO bundles (tocfile, frostid, offset, size, base, delta) VALUES (" + tocid + ",'" + info.id + "'," + info.offset + ", " + info.size + ", '" + info.isbase + "', '" + info.isdelta + "' )", con);
-                int counter = 0;
                 if (b.ebx != null)
                     foreach (Bundle.ebxtype ebx in b.ebx)
                         try
@@ -486,20 +490,20 @@ namespace DAILibWV
             }
             guid = Helpers.ByteArrayToHexString(data, 0x28, 0x10);
             SQLCommand("INSERT INTO ebxlut (path,sha1,basesha1,deltasha1,casptype,guid,bundlepath,offset,size,isbase,isdelta,tocpath,incas,filetype) VALUES ('"
-                + ebx.ebxname.Replace("'","''") + "','"
-                + ebx.sha1 + "','"
-                + ebx.basesha1 + "','"
-                + ebx.deltasha1 + "',"
-                + ebx.casPatchType + ",'"
-                + guid + "','"
-                + ebx.bundlepath + "',"
-                + ebx.offset + ","
-                + ebx.size + ",'"
-                + ebx.isbase + "','"
-                + ebx.isdelta + "','"
-                + ebx.tocfilepath + "','"
-                + ebx.incas + "','"
-                + ftype + "')", con);
+                       + ebx.ebxname.Replace("'", "''") + "','"
+                       + ebx.sha1 + "','"
+                       + ebx.basesha1 + "','"
+                       + ebx.deltasha1 + "',"
+                       + ebx.casPatchType + ",'"
+                       + guid + "','"
+                       + ebx.bundlepath + "',"
+                       + ebx.offset + ","
+                       + ebx.size + ",'"
+                       + ebx.isbase + "','"
+                       + ebx.isdelta + "','"
+                       + ebx.tocfilepath + "','"
+                       + ebx.incas + "','"
+                       + ftype + "')", con);
         }
 
         #endregion
@@ -509,12 +513,15 @@ namespace DAILibWV
         public static string[] GetGameFiles(string table)
         {
             List<string> result = new List<string>();
-            SQLiteConnection con = GetConnection();
-            con.Open();
-            SQLiteDataReader reader = getAll(table, con);
-            while (reader.Read())
-                result.Add(reader.GetString(1));
-            con.Close();
+            using (var con = GetConnection())
+            {
+                con.Open();
+                using (var reader = getAll(table, con))
+                {
+                    while (reader.Read())
+                        result.Add(reader.GetString(1));
+                }
+            }
             return result.ToArray();
         }
 
@@ -554,39 +561,43 @@ namespace DAILibWV
         public static BundleInformation[] GetBundleInformation()
         {
             List<BundleInformation> result = new List<BundleInformation>();
-            SQLiteConnection con = GetConnection();
-            con.Open();
-            SQLiteDataReader reader = getAllJoined("bundles", "tocfiles", "tocfile", "id", con, "frostid");
-            int count = 0;
-            while (reader.Read())
+            using (var con = GetConnection())
             {
-                if (count++ % 1000 == 0)
-                    Application.DoEvents();
-                BundleInformation bi = new BundleInformation();
-                bi.index = reader.GetInt32(0);
-                bi.tocIndex = reader.GetInt32(1);
-                bi.bundlepath = reader.GetString(2).ToLower();
-                bi.offset = reader.GetInt32(3);
-                bi.size = reader.GetInt32(4);
-                bi.isbase = reader.GetString(5) == "True";
-                bi.isdelta = reader.GetString(6) == "True";
-                bi.filepath = reader.GetString(8).ToLower();
-                bi.incas = reader.GetString(10) == "True";
-                switch (reader.GetString(11))
+                con.Open();
+                using (var reader = getAllJoined("bundles", "tocfiles", "tocfile", "id", con, "frostid"))
                 {
-                    case "b":
-                        bi.isbasegamefile = true;
-                        break;
-                    case "u":
-                        bi.isDLC= true;
-                        break;
-                    case "p":
-                        bi.isPatch= true;
-                        break;
+                    int count = 0;
+                    while (reader.Read())
+                    {
+                        if (count++ % 1000 == 0)
+                            Application.DoEvents();
+                        BundleInformation bi = new BundleInformation();
+                        bi.index = reader.GetInt32(0);
+                        bi.tocIndex = reader.GetInt32(1);
+                        bi.bundlepath = reader.GetString(2).ToLower();
+                        bi.offset = reader.GetInt32(3);
+                        bi.size = reader.GetInt32(4);
+                        bi.isbase = reader.GetString(5) == "True";
+                        bi.isdelta = reader.GetString(6) == "True";
+                        bi.filepath = reader.GetString(8).ToLower();
+                        bi.incas = reader.GetString(10) == "True";
+                        switch (reader.GetString(11))
+                        {
+                            case "b":
+                                bi.isbasegamefile = true;
+                                break;
+                            case "u":
+                                bi.isDLC = true;
+                                break;
+                            case "p":
+                                bi.isPatch = true;
+                                break;
+                        }
+                        result.Add(bi);
+                    }
                 }
-                result.Add(bi);
             }
-            con.Close();
+
             return result.ToArray();
         }
 
@@ -594,36 +605,41 @@ namespace DAILibWV
         {
             BundleInformation result = new BundleInformation();
             result.tocIndex = -1;
-            SQLiteConnection con = GetConnection();
-            con.Open();
-            SQLiteDataReader reader = getAllJoinedWhere("bundles", "tocfiles", "tocfile", "id", "bundles.id = " + index, con, "frostid");
-            if (reader.Read())
+            using (var con = GetConnection())
             {
-                BundleInformation bi = new BundleInformation();
-                bi.index = reader.GetInt32(0);
-                bi.tocIndex = reader.GetInt32(1);
-                bi.bundlepath = reader.GetString(2).ToLower();
-                bi.offset = reader.GetInt32(3);
-                bi.size = reader.GetInt32(4);
-                bi.isbase = reader.GetString(5) == "True";
-                bi.isdelta = reader.GetString(6) == "True";
-                bi.filepath = reader.GetString(8).ToLower();
-                bi.incas = reader.GetString(10) == "True";
-                switch (reader.GetString(11))
+                con.Open();
+                using (var reader = getAllJoinedWhere("bundles", "tocfiles", "tocfile", "id", "bundles.id = " + index,
+                    con, "frostid"))
                 {
-                    case "b":
-                        bi.isbasegamefile = true;
-                        break;
-                    case "u":
-                        bi.isDLC = true;
-                        break;
-                    case "p":
-                        bi.isPatch = true;
-                        break;
+                    if (reader.Read())
+                    {
+                        BundleInformation bi = new BundleInformation();
+                        bi.index = reader.GetInt32(0);
+                        bi.tocIndex = reader.GetInt32(1);
+                        bi.bundlepath = reader.GetString(2).ToLower();
+                        bi.offset = reader.GetInt32(3);
+                        bi.size = reader.GetInt32(4);
+                        bi.isbase = reader.GetString(5) == "True";
+                        bi.isdelta = reader.GetString(6) == "True";
+                        bi.filepath = reader.GetString(8).ToLower();
+                        bi.incas = reader.GetString(10) == "True";
+                        switch (reader.GetString(11))
+                        {
+                            case "b":
+                                bi.isbasegamefile = true;
+                                break;
+                            case "u":
+                                bi.isDLC = true;
+                                break;
+                            case "p":
+                                bi.isPatch = true;
+                                break;
+                        }
+                        result = bi;
+                    }
                 }
-                result = bi;
             }
-            con.Close();
+           
             return result;
         }
         
@@ -1023,31 +1039,37 @@ namespace DAILibWV
         private static void ScanFiles()
         {
             Debug.LogLn("Saving file paths into db...");
-            SQLiteConnection con = GetConnection();
-            con.Open();
-            var transaction = con.BeginTransaction();
-            string[] files = Directory.GetFiles(GlobalStuff.FindSetting("gamepath"), "*.sb", SearchOption.AllDirectories);
-            Debug.LogLn("SB files...");
-            foreach (string file in files)
-                if (!file.ToLower().Contains("\\update\\"))
-                    AddSBFile(file, TYPE_BASEGAME, con);
-                else if (!file.ToLower().Contains("\\update\\patch\\"))
-                    AddSBFile(file, TYPE_UPDATE, con);
-                else
-                    AddSBFile(file, TYPE_PATCH, con);
-            transaction.Commit();
-            transaction = con.BeginTransaction();
-            Debug.LogLn("TOC files...");
-            files = Directory.GetFiles(GlobalStuff.FindSetting("gamepath"), "*.toc", SearchOption.AllDirectories);
-            foreach (string file in files)
-                if (!file.ToLower().Contains("\\update\\"))
-                    AddTOCFile(file, TYPE_BASEGAME, con);
-                else if (!file.ToLower().Contains("\\update\\patch\\"))
-                    AddTOCFile(file, TYPE_UPDATE, con);
-                else
-                    AddTOCFile(file, TYPE_PATCH, con);
-            transaction.Commit();
-            con.Close();
+            using (var con = GetConnection())
+            {
+                con.Open();
+                using (var transaction = con.BeginTransaction())
+                {
+                    string[] files = Directory.GetFiles(GlobalStuff.FindSetting("gamepath"), "*.sb", SearchOption.AllDirectories);
+                    Debug.LogLn("SB files...");
+                    foreach (string file in files)
+                        if (!file.ToLower().Contains("\\update\\"))
+                            AddSBFile(file, TYPE_BASEGAME, con);
+                        else if (!file.ToLower().Contains("\\update\\patch\\"))
+                            AddSBFile(file, TYPE_UPDATE, con);
+                        else
+                            AddSBFile(file, TYPE_PATCH, con);
+                    transaction.Commit();
+                }
+
+                using (var transaction = con.BeginTransaction())
+                {
+                    Debug.LogLn("TOC files...");
+                    var files = Directory.GetFiles(GlobalStuff.FindSetting("gamepath"), "*.toc", SearchOption.AllDirectories);
+                    foreach (string file in files)
+                        if (!file.ToLower().Contains("\\update\\"))
+                            AddTOCFile(file, TYPE_BASEGAME, con);
+                        else if (!file.ToLower().Contains("\\update\\patch\\"))
+                            AddTOCFile(file, TYPE_UPDATE, con);
+                        else
+                            AddTOCFile(file, TYPE_PATCH, con);
+                    transaction.Commit();
+                }
+            }
         }
         
         private static void ScanTOCsForBundles()
