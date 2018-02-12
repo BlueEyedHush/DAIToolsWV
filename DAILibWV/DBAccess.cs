@@ -14,6 +14,8 @@ namespace DAILibWV
 {
     public static class DBAccess
     {
+        public static bool DETAILED_CHUNK_LOGGING = true;
+
         public static string dbpath = Path.GetDirectoryName(Application.ExecutablePath) + "\\database.sqlite";
         public static readonly string TYPE_BASEGAME = "b";
         public static readonly string TYPE_UPDATE = "u";
@@ -1194,13 +1196,24 @@ namespace DAILibWV
                         foreach (TOCFile.TOCChunkInfoStruct info in tocfile.chunks)
                         {
                             AddGlobalChunk(fileids[counter - 1], info.id, info.sha1, info.offset, info.size, con);
-                            counter2 += 1;
 
-                            if (counter2 % 1000 == 0) 
-                                Debug.LogLn(" Added: " + (counter2) + "/" + tocfile.chunks.Count + " chunks.");
+                            if (DETAILED_CHUNK_LOGGING)
+                                Debug.LogLn(
+                                    " adding chunk: " + (counter2) + "/" + tocfile.chunks.Count + " " +
+                                    Helpers.ByteArrayToHexString(info.id), counter2 % 1000 == 0);
+                            else
+                            {
+                                int loadedChunks = counter2 + 1;
+                                if (loadedChunks % 1000 == 0)
+                                    Debug.LogLn(" Added: " + loadedChunks + "/" + tocfile.chunks.Count + " chunks.");
+                            }
+
+                            counter2 += 1;
                         }
 
-                        Debug.LogLn(" Loaded " + counter2 + " chunks.");
+                        if (!DETAILED_CHUNK_LOGGING && tocfile.chunks.Count > 0)
+                            Debug.LogLn(" Loaded " + counter2 + " chunks.");
+
                         transaction.Commit();
                     }
 
