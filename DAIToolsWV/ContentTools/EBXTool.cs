@@ -123,7 +123,8 @@ namespace DAIToolsWV.ContentTools
 
         private void EBXTool_Load(object sender, EventArgs e)
         {
-            tabCtrl.SelectedTab = tabPag;
+            if (tabCtrl != null)
+                tabCtrl.SelectedTab = tabPag;
         }
 
         private void EBXTool_FormClosing(object sender, FormClosingEventArgs e)
